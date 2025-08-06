@@ -15,9 +15,9 @@ function Highlights() {
   const youtubeVideos = [
     {
       id: '1',
-      title: 'New Song Title',
-      thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg', // Replace with actual video ID
-      videoId: 'dQw4w9WgXcQ', // Replace with actual video ID
+      title: 'Stone Compass (Live at ACM Studio Lounge)',
+      thumbnail: 'https://img.youtube.com/vi/WoPssh0v0yM/maxresdefault.jpg', // Replace with actual video ID
+      videoId: 'WoPssh0v0yM', // Replace with actual video ID
       uploadDate: '2024-01-15'
     },
     {
@@ -36,35 +36,25 @@ function Highlights() {
     }
   ];
 
-  // Recent singles data - replace with your actual single data
   const recentSingles = [
     {
       id: '1',
-      title: 'Midnight Navigator',
-      coverArt: '/api/placeholder/400/400', // Replace with actual cover art URL
-      releaseDate: '2024-01-12',
+      title: 'night',
+      coverArt: 'images/night.jpg',
+      releaseDate: '2025-07-31',
       streamingLinks: {
-        spotify: 'https://open.spotify.com/track/your-track-id'
+        spotify: 'https://open.spotify.com/track/65muv5C7mzTehaBM6hxpPh'
       }
     },
     {
       id: '2',
-      title: 'Electric Horizon',
+      title: 'reflection',
       coverArt: '/api/placeholder/400/400', // Replace with actual cover art URL
-      releaseDate: '2023-12-05',
+      releaseDate: '2025-04-17',
       streamingLinks: {
-        spotify: 'https://open.spotify.com/track/your-track-id'
+        spotify: 'https://open.spotify.com/track/2lDRqbv6sRTlbq4PM8oVgR'
       }
     },
-    {
-      id: '3',
-      title: 'Compass Rose',
-      coverArt: '/api/placeholder/400/400', // Replace with actual cover art URL
-      releaseDate: '2023-11-18',
-      streamingLinks: {
-        spotify: 'https://open.spotify.com/track/your-track-id'
-      }
-    }
   ];
 
   const handleVideoClick = (videoId) => {
@@ -118,6 +108,8 @@ function Highlights() {
                   image={single.coverArt}
                   alt={single.title}
                   sx={{ 
+                    height: 400,
+                    width: 400,
                     aspectRatio: '1/1',
                     backgroundColor: 'grey.100',
                     mb: 3,
@@ -127,7 +119,8 @@ function Highlights() {
                 
                 <Typography
                   variant="body1"
-                  sx={{ 
+                  sx={{
+                    fontSize: 30,
                     fontWeight: 400,
                     color: 'text.primary',
                     mb: 1,
