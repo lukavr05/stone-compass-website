@@ -42,7 +42,7 @@ function Highlights() {
     {
       id: '2',
       title: 'reflection',
-      coverArt: '/api/placeholder/400/400', // Replace with actual cover art URL
+      coverArt: 'images/reflection.JPEG', // Replace with actual cover art URL
       releaseDate: '2025-04-17',
       streamingLinks: {
         spotify: 'https://open.spotify.com/track/2lDRqbv6sRTlbq4PM8oVgR'
@@ -70,10 +70,10 @@ function Highlights() {
     <Container maxWidth="md" sx={{ py: 12 }}>
       <Box>
         <Typography
-          variant="h5"
+          variant="h2"
           component="h2"
           sx={{
-            fontWeight: 300,
+            fontWeight: 600,
             color: 'text.primary',
             mb: 8,
             textAlign: 'center',
