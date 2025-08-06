@@ -94,23 +94,49 @@ function Home() {
           pt: 8
         }}
       >
-        {/* Band Name Title */}
-        <Typography
-          variant="h1"
-          component="h1"
+        {/* Animated Band Name Title */}
+        <Box
           sx={{
             fontSize: { xs: '3rem', sm: '4rem', md: '6rem', lg: '8rem' },
             fontWeight: 600,
-            letterSpacing: '0.02em',
+            letterSpacing: '0.15em',
             color: 'black',
             mb: 4,
             textTransform: 'lowercase',
-            backgroundClip: 'text',
-            lineHeight: 0.9
+            lineHeight: 0.9,
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            '@keyframes fontCycle': {
+              '0%': { fontFamily: '"Cutive Mono", monospace' },
+              '16.66%': { fontFamily: '"Fira Code", monospace' },
+              '33.33%': { fontFamily: '"Ubuntu Mono", monospace' },
+              '50%': { fontFamily: '"Menlo", monospace' },
+              '66.66%': { fontFamily: '"Chivo Mono", monospace' },
+              '83.33%': { fontFamily: '"Doto", monospace' },
+              '100%': { fontFamily: '"Cutive Mono", monospace' }
+            }
           }}
         >
-          Stone Compass
-        </Typography>
+          {['s','t','o','n','e',' ','c','o','m','p','a','s','s'].map((letter, index) => {
+            // Random delays to break the wave pattern
+            const randomDelays = [0, 2.3, 4.7, 1.1, 3.8, 0.5, 2.9, 4.2, 0.7, 3.1, 1.6, 4.5, 2.0];
+            return (
+              <Box
+                key={index}
+                component="span"
+                sx={{
+                  display: 'inline-block',
+                  animation: `fontCycle 6s infinite ease-in-out`,
+                  animationDelay: `${randomDelays[index]}s`,
+                  minWidth: letter === ' ' ? '0.5em' : 'auto'
+                }}
+              >
+                {letter === ' ' ? '\u00A0' : letter}
+              </Box>
+            );
+          })}
+        </Box>
 
         {/* Listen Now Button */}
         <Button

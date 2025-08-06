@@ -12,7 +12,13 @@
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
+    "@fontsource/caprasimo": "^5.2.6",
+    "@fontsource/chivo-mono": "^5.2.6",
+    "@fontsource/cutive-mono": "^5.2.6",
+    "@fontsource/doto": "^5.2.8",
+    "@fontsource/fira-code": "^5.2.6",
     "@fontsource/pridi": "^5.2.6",
+    "@fontsource/ubuntu-mono": "^5.2.6",
     "@mui/icons-material": "^7.3.0",
     "@mui/material": "^7.1.2",
     "react": "^19.1.0",

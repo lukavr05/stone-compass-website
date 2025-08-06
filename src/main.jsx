@@ -5,6 +5,12 @@ import CssBaseline from '@mui/material/CssBaseline'
 import App from './App.jsx'
 import { BrowserRouter } from 'react-router-dom'
 
+import '@fontsource/doto'
+import '@fontsource/cutive-mono'
+import '@fontsource/chivo-mono'
+import '@fontsource/fira-code'
+import '@fontsource/ubuntu-mono'
+
 const theme = createTheme({
   palette: {
     mode: 'light',

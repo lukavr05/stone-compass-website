@@ -6,7 +6,13 @@
       "dependencies": {
         "@emotion/react": "^11.14.0",
         "@emotion/styled": "^11.14.1",
+        "@fontsource/caprasimo": "^5.2.6",
+        "@fontsource/chivo-mono": "^5.2.6",
+        "@fontsource/cutive-mono": "^5.2.6",
+        "@fontsource/doto": "^5.2.8",
+        "@fontsource/fira-code": "^5.2.6",
         "@fontsource/pridi": "^5.2.6",
+        "@fontsource/ubuntu-mono": "^5.2.6",
         "@mui/icons-material": "^7.3.0",
         "@mui/material": "^7.1.2",
         "react": "^19.1.0",
@@ -161,7 +167,19 @@
 
     "@eslint/plugin-kit": ["@eslint/plugin-kit@0.3.3", "", { "dependencies": { "@eslint/core": "^0.15.1", "levn": "^0.4.1" } }, "sha512-1+WqvgNMhmlAambTvT3KPtCl/Ibr68VldY2XY40SL1CE0ZXiakFR/cbTspaF5HsnpDMvcYYoJHfl4980NBjGag=="],
 
+    "@fontsource/caprasimo": ["@fontsource/caprasimo@5.2.6", "", {}, "sha512-fzQ5ZsvNiqdDtsgQPBqyzM0OA2nu1nW/I1QoVOKGvDWavRHCRrND1y9OTKXOFZ/pOFlKmPahrx+MaDrL5T5fVA=="],
+
+    "@fontsource/chivo-mono": ["@fontsource/chivo-mono@5.2.6", "", {}, "sha512-fs0bzPlzpatWrnEtEbXt49p5Jvb1SO6JMz+om8C6ImYLA7QUe4iF8Yt3cVWB4yNNIHPj9h3ylql05gXOScyiJw=="],
+
+    "@fontsource/cutive-mono": ["@fontsource/cutive-mono@5.2.6", "", {}, "sha512-d5Y5PlNvR1Om7dZ4L5FUAVQUcvjTqXkRUIqovBHxvLTRHgBDwq6QD6mt8PFGZM7ecRwB3fOyeq/eSjOWD/oAzA=="],
+
+    "@fontsource/doto": ["@fontsource/doto@5.2.8", "", {}, "sha512-WB2SAuvOzIQFZ4xEDE/Bg3dW02ReDEdHY86lHSY2bhnCzsBV9nv8WXLPqjoPAD17LluJRL180bh433Bly58+7g=="],
+
+    "@fontsource/fira-code": ["@fontsource/fira-code@5.2.6", "", {}, "sha512-wCkIpPm0BqlkCPLYeY4Vui96ODmVUV0/GpEe3OfJ4v8EJn/BF2SlyxvarFsTs1CKiGjrO2cXlIZbBrKi9F+hUQ=="],
+
     "@fontsource/pridi": ["@fontsource/pridi@5.2.6", "", {}, "sha512-SyJQ4sxtfpjk4y8O4HON5JKTgNpiUxKDIGYJRGYbXZJXckdyfSI2QcYNyBVqCjKuSyAalc9JDMZa4Ad6d4DyDw=="],
+
+    "@fontsource/ubuntu-mono": ["@fontsource/ubuntu-mono@5.2.6", "", {}, "sha512-9oJsnQbCl0du6Sy5DITlCY+OwxYYPd2z5R55KF8qZXmJSoWPoMSY6bGi81eBvKU4Jdx8/ETRfN9NJvoMQ9ch3g=="],
 
     "@humanfs/core": ["@humanfs/core@0.19.1", "", {}, "sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA=="],
 
