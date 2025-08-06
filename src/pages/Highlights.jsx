@@ -16,24 +16,17 @@ function Highlights() {
     {
       id: '1',
       title: 'Stone Compass (Live at ACM Studio Lounge)',
-      thumbnail: 'https://img.youtube.com/vi/WoPssh0v0yM/maxresdefault.jpg', // Replace with actual video ID
+      thumbnail: 'images/scpromo1.JPEG', // Replace with actual video ID
       videoId: 'WoPssh0v0yM', // Replace with actual video ID
       uploadDate: '2024-01-15'
     },
     {
       id: '2',
-      title: 'Behind the Scenes',
-      thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg', // Replace with actual video ID
-      videoId: 'dQw4w9WgXcQ', // Replace with actual video ID
+      title: 'Artificial Moon (Lyric Video)',
+      thumbnail: 'https://img.youtube.com/vi/pUGQ7wZAF1g/maxresdefault.jpg', // Replace with actual video ID
+      videoId: 'pUGQ7wZAF1g', // Replace with actual video ID
       uploadDate: '2024-01-08'
     },
-    {
-      id: '3',
-      title: 'Live Performance',
-      thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg', // Replace with actual video ID
-      videoId: 'dQw4w9WgXcQ', // Replace with actual video ID
-      uploadDate: '2023-12-20'
-    }
   ];
 
   const recentSingles = [

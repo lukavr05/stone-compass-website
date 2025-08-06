@@ -109,11 +109,10 @@ function Home() {
             justifyContent: 'center',
             '@keyframes fontCycle': {
               '0%': { fontFamily: '"Cutive Mono", monospace' },
-              '16.66%': { fontFamily: '"Fira Code", monospace' },
-              '33.33%': { fontFamily: '"Ubuntu Mono", monospace' },
-              '50%': { fontFamily: '"Menlo", monospace' },
-              '66.66%': { fontFamily: '"Chivo Mono", monospace' },
-              '83.33%': { fontFamily: '"Doto", monospace' },
+              '20%': { fontFamily: '"Chivo Mono", monospace' },
+              '40%': { fontFamily: '"Doto", monospace' },
+              '60%': { fontFamily: '"Ubuntu Mono", monospace' },
+              '80%': { fontFamily: '"Fira Code", monospace' },
               '100%': { fontFamily: '"Cutive Mono", monospace' }
             }
           }}
@@ -147,7 +146,9 @@ function Home() {
           sx={{
             backgroundColor: '#000000',
             color: 'white',
-            px: 4,
+            position: 'relative',
+            top: '80%',
+            px: 6,
             py: 2,
             fontSize: '1.2rem',
             fontWeight: 600,
