@@ -64,7 +64,7 @@ function Home() {
           <path d="M0 18.75l7.437-13.5h16.563l-7.437 13.5z"/>
         </svg>
       ),
-      url: 'https://your-band.bandcamp.com', // Replace with your Bandcamp URL
+      url: 'https://stonecompass.bandcamp.com/', // Replace with your Bandcamp URL
       color: '#629AA0'
     }
   ];
