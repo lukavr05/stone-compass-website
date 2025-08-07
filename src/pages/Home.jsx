@@ -5,7 +5,8 @@ import {
   Apple,
   LibraryMusic
 } from '@mui/icons-material'
-import Highlights from "./Highlights";
+import Highlights from "./Highlights"
+import Media from "./Media"
 
 function Home() {
   // Social media and streaming platform links
@@ -233,6 +234,7 @@ function Home() {
         }}
       >
         <Highlights />
+        <Media />
     </Box>
     </>
   );
