@@ -21,6 +21,7 @@
     "@fontsource/ubuntu-mono": "^5.2.6",
     "@mui/icons-material": "^7.3.0",
     "@mui/material": "^7.1.2",
+    "framer-motion": "^12.23.26",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.6.3"

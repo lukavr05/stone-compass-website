@@ -195,17 +195,6 @@ function Media() {
         >
           Media Gallery
         </Typography>
-        <Typography
-          variant="h6"
-          color="text.secondary"
-          sx={{
-            fontWeight: 300,
-            maxWidth: 600,
-            mx: 'auto'
-          }}
-        >
-          Behind the scenes, live performances, and moments from our musical journey
-        </Typography>
       </Box>
 
       {/* Masonry Image Grid */}
