@@ -32,7 +32,7 @@ export default function Highlights() {
         {/* Cover Art */}
         <Box
           component="img"
-          src="/images/reflection.JPEG"
+          src="/images/night.jpg"
           alt="Latest Release Cover"
           sx={{
             width: '100%',
@@ -73,7 +73,6 @@ export default function Highlights() {
                   '&:hover': {
                     color,
                     transform: 'scale(1.2)',
-                    filter: `drop-shadow(0 0 8px ${color})`
                   }
                 }}
               >

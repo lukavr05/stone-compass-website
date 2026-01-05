@@ -160,7 +160,6 @@ const streamingLinks = platforms;
                           '&:hover': {
                             color: platform.color,
                             transform: 'scale(1.2)',
-                            filter: `drop-shadow(0 0 8px ${platform.color})`
                           }
                         }}
                       >
@@ -183,8 +182,8 @@ const streamingLinks = platforms;
         sx={{
           position: 'absolute',
           left: { xs: '2rem', md: '4rem' },
-          top: {xs: '48vh', md: '52vh', lg: '44vh'},
-          width: { xs: '300px', md: '600px', lg: '960px' },
+          top: {xs: '56vh', md: '52vh', lg: '44vh'},
+          width: { xs: '500px', md: '700px', lg: '960px' },
           height: 'auto',
           zIndex: 10
         }}
