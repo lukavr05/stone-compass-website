@@ -28,17 +28,7 @@ const streamingLinks = platforms;
       overflow: 'auto',
       position: 'relative'
     }}>
-      {/* Load Konkhmer Sleokchher font */}
-      <style>
-        {`
-          @import url('https://fonts.googleapis.com/css2?family=Konkhmer+Sleokchher&display=swap');
-          
-          .terminal-font {
-            font-family: 'Konkhmer Sleokchher', system-ui;
-            font-style: normal;
-          }
-        `}
-      </style>
+      
       
       <Box
         component={motion.div}
@@ -91,7 +81,7 @@ const streamingLinks = platforms;
               duration: 0.4,
               ease: 'easeInOut'
             }}
-            className="terminal-font"
+            
             sx={{
               color: isExpanded ? '#000000' : '#ffffff',
               border: '2px solid #ffffff',
@@ -159,7 +149,7 @@ const streamingLinks = platforms;
                           transition: 'all 0.25s ease',
                           '&:hover': {
                             color: platform.color,
-                            transform: 'scale(1.2)',
+                            transform: 'scale(1.1)',
                           }
                         }}
                       >
@@ -182,8 +172,8 @@ const streamingLinks = platforms;
         sx={{
           position: 'absolute',
           left: { xs: '2rem', md: '4rem' },
-          top: {xs: '56vh', md: '52vh', lg: '44vh'},
-          width: { xs: '500px', md: '700px', lg: '960px' },
+          top: {xs: '53vh', md: '50vh', lg: '44vh'},
+          width: { xs: '600px', md: '700px', lg: '960px' },
           height: 'auto',
           zIndex: 10
         }}

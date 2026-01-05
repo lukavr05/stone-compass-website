@@ -57,7 +57,14 @@ export default function Highlights() {
             RELEASE TITLE
           </Typography>
 
-          <Typography sx={{ mt: 2, maxWidth: '520px', opacity: 0.85 }}>
+          <Typography 
+            sx={{ 
+              mt: 2, 
+              maxWidth: '520px', 
+              opacity: 0.85,
+              fontFamily: '"Cascadia Code", monospace'
+            }}
+          >
             A short description of the track or EP — tone, mood, or concept.
           </Typography>
 

@@ -11,6 +11,11 @@ import '@fontsource/chivo-mono'
 import '@fontsource/fira-code'
 import '@fontsource/ubuntu-mono'
 
+// Import Konkhmer Sleokchher font
+import '@fontsource/konkhmer-sleokchher'
+// Import Cascadia Code font
+import '@fontsource/cascadia-code'
+
 const theme = createTheme({
   palette: {
     mode: 'light',
@@ -62,7 +67,7 @@ const theme = createTheme({
     divider: 'rgba(0, 0, 0, 0.12)',
   },
   typography: {
-    fontFamily: '"Pridi", serif',
+    fontFamily: '"Konkhmer Sleokchher", serif',
     h1: {
       fontSize: '2.5rem',
       fontWeight: 300,
