@@ -6,12 +6,26 @@ import { useState } from 'react';
 export default function Highlights() {
   const [showLyrics, setShowLyrics] = useState(false);
 
-  const lyrics = `[Your lyrics here]
-Verse 1 lyrics...
-Chorus lyrics...
-Verse 2 lyrics...
-Bridge lyrics...
-Outro lyrics...`;
+  const lyrics = `
+    the stars poke holes in the night
+    and the longer you hold year head to the sky
+    the more will appear
+    
+    the wind carries your laughter
+    and when you listen with joy
+    you will finally hear
+
+    if i could reach into the cold
+    and pluck a star from where it hangs
+    only to find it dead in my hands
+    so cold
+    and heavy
+
+    damn this simple heart
+    damn everything i thought i was
+    i saw the night approaching
+    but still i fought
+`;
 
   const toggleLyrics = () => {
     setShowLyrics(!showLyrics);
@@ -56,51 +70,55 @@ Outro lyrics...`;
 
         {/* Info */}
         <Box>
-          <Typography
-            variant="overline"
-            sx={{ 
-              letterSpacing: '0.2em',
-              opacity: 0.7,
-              fontFamily: '"Cascadia Code", monospace',
-            }}
-          >
-            Latest Release
-          </Typography>
+          {/* Header with Title and Button */}
+          <Box sx={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 2 }}>
+            <Box sx={{ flex: 1 }}>
+              <Typography
+                variant="overline"
+                sx={{ 
+                  letterSpacing: '0.2em',
+                  color: '#aaa',
+                  fontFamily: '"Cascadia Code", monospace',
+                }}
+              >
+                Latest Release
+              </Typography>
 
-          <Typography
-            variant="h3"
-            sx={{ mt: 1, fontWeight: 'bold' }}
-          >
-            night
-          </Typography>
+              <Typography
+                variant="h3"
+                sx={{ mt: 1, fontWeight: 'bold' }}
+              >
+                night
+              </Typography>
+            </Box>
 
-          {/* View Lyrics Button */}
-          <Button
-            variant="outlined"
-            onClick={toggleLyrics}
-            sx={{
-              mt: 2,
-              maxWidth: '200px',
-              borderColor: '#fff',
-              color: '#fff',
-              fontFamily: '"Cascadia Code", monospace',
-              fontWeight: 'bold',
-              textTransform: 'none',
-              fontSize: '0.9rem',
-              padding: '8px 20px',
-              borderRadius: '4px',
-              transition: 'all 0.3s ease',
-              '&:hover': {
-                backgroundColor: '#fff',
-                color: '#000',
-                borderColor: '#fff',
-                transform: 'translateY(-2px)',
-                boxShadow: '0 4px 12px rgba(255,255,255,0.2)'
-              }
-            }}
-          >
-            {showLyrics ? 'Hide Lyrics' : 'View Lyrics'}
-          </Button>
+            {/* View Lyrics Button */}
+            <Button
+              variant="outlined"
+              onClick={toggleLyrics}
+              sx={{
+                mt: 1,
+                borderColor: '#aaa',
+                color: '#aaa',
+                fontWeight: 'bold',
+                textTransform: 'none',
+                fontSize: '0.9rem',
+                padding: '8px 20px',
+                borderRadius: '4px',
+                transition: 'all 0.3s ease',
+                whiteSpace: 'nowrap',
+                '&:hover': {
+                  backgroundColor: '#fff',
+                  color: '#000',
+                  borderColor: '#fff',
+                  transform: 'translateY(-2px)',
+                  boxShadow: '0 4px 12px rgba(255,255,255,0.2)'
+                }
+              }}
+            >
+              {showLyrics ? 'Hide Lyrics' : 'View Lyrics'}
+            </Button>
+          </Box>
 
           {/* Lyrics Display */}
           <AnimatePresence>
