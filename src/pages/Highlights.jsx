@@ -1,8 +1,21 @@
-import { Box, Typography, IconButton } from '@mui/material';
-import { motion } from 'framer-motion';
+import { Box, Typography, IconButton, Button } from '@mui/material';
+import { motion, AnimatePresence } from 'framer-motion';
 import { platforms, BrandIcon } from '../constants/platforms.jsx';
+import { useState } from 'react';
 
 export default function Highlights() {
+  const [showLyrics, setShowLyrics] = useState(false);
+
+  const lyrics = `[Your lyrics here]
+Verse 1 lyrics...
+Chorus lyrics...
+Verse 2 lyrics...
+Bridge lyrics...
+Outro lyrics...`;
+
+  const toggleLyrics = () => {
+    setShowLyrics(!showLyrics);
+  };
   return (
     <Box
       id="release"
@@ -45,7 +58,11 @@ export default function Highlights() {
         <Box>
           <Typography
             variant="overline"
-            sx={{ letterSpacing: '0.2em', opacity: 0.7 }}
+            sx={{ 
+              letterSpacing: '0.2em',
+              opacity: 0.7,
+              fontFamily: '"Cascadia Code", monospace',
+            }}
           >
             Latest Release
           </Typography>
@@ -54,19 +71,88 @@ export default function Highlights() {
             variant="h3"
             sx={{ mt: 1, fontWeight: 'bold' }}
           >
-            RELEASE TITLE
+            night
           </Typography>
 
-          <Typography 
-            sx={{ 
-              mt: 2, 
-              maxWidth: '520px', 
-              opacity: 0.85,
-              fontFamily: '"Cascadia Code", monospace'
+          {/* View Lyrics Button */}
+          <Button
+            variant="outlined"
+            onClick={toggleLyrics}
+            sx={{
+              mt: 2,
+              maxWidth: '200px',
+              borderColor: '#fff',
+              color: '#fff',
+              fontFamily: '"Cascadia Code", monospace',
+              fontWeight: 'bold',
+              textTransform: 'none',
+              fontSize: '0.9rem',
+              padding: '8px 20px',
+              borderRadius: '4px',
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                backgroundColor: '#fff',
+                color: '#000',
+                borderColor: '#fff',
+                transform: 'translateY(-2px)',
+                boxShadow: '0 4px 12px rgba(255,255,255,0.2)'
+              }
             }}
           >
-            A short description of the track or EP — tone, mood, or concept.
-          </Typography>
+            {showLyrics ? 'Hide Lyrics' : 'View Lyrics'}
+          </Button>
+
+          {/* Lyrics Display */}
+          <AnimatePresence>
+            {showLyrics && (
+              <motion.div
+                initial={{ opacity: 0, height: 0, y: -20 }}
+                animate={{ opacity: 1, height: 'auto', y: 0 }}
+                exit={{ opacity: 0, height: 0, y: -20 }}
+                transition={{ duration: 0.3, ease: 'easeInOut' }}
+                style={{ overflow: 'hidden' }}
+              >
+                <Box
+                  sx={{
+                    mt: 3,
+                    p: 3,
+                    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                    borderRadius: '8px',
+                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    maxWidth: '520px',
+                    backdropFilter: 'blur(10px)'
+                  }}
+                >
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      mb: 2,
+                      fontFamily: '"Cascadia Code", monospace',
+                      fontWeight: 'bold',
+                      color: '#fff',
+                      opacity: 0.9
+                    }}
+                  >
+                    Lyrics
+                  </Typography>
+                  <Typography
+                    component="pre"
+                    sx={{
+                      fontFamily: '"Cascadia Code", monospace',
+                      fontSize: '0.9rem',
+                      lineHeight: 1.6,
+                      color: 'rgba(255, 255, 255, 0.85)',
+                      whiteSpace: 'pre-wrap',
+                      wordWrap: 'break-word',
+                      margin: 0
+                    }}
+                  >
+                    {lyrics}
+                  </Typography>
+                </Box>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           {/* Platforms */}
           <Box sx={{ display: 'flex', gap: 2, mt: 4 }}>
@@ -92,4 +178,3 @@ export default function Highlights() {
     </Box>
   );
 }
-
