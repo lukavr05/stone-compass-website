@@ -161,7 +161,7 @@ if i don't let it
                   fontFamily: '"Cascadia Code", monospace',
                 }}
               >
-                Latest Release
+                Latest_Release
               </Typography>
 
               <Typography
@@ -195,7 +195,7 @@ if i don't let it
                 }
               }}
             >
-              {showLyrics ? 'hide hyrics' : 'show lyrics'}
+              {showLyrics ? 'hide_hyrics' : 'show_lyrics'}
             </Button>
           </Box>
 

@@ -71,7 +71,7 @@ function Home() {
           <Box
             component={motion.div}
             animate={{
-              width: isExpanded ? '600px' : '240px',
+              width: isExpanded ? '560px' : '244px',
               backgroundColor: isExpanded ? '#ffffff' : 'transparent',
             }}
             transition={{
@@ -84,9 +84,10 @@ function Home() {
               border: '2px solid #ffffff',
               borderRadius: '5px',
               height: '60px',
+              fontFamily: '"Cascadia Code", monospace',
               fontSize: '1.8rem',
               fontWeight: 'bold',
-              textTransform: 'lowercase',
+              textTransform: 'uppercase',
               cursor: 'pointer',
               boxShadow: isExpanded ? '0 0 20px rgba(255, 255, 255, 0.5)' : 'none',
               position: 'relative',
