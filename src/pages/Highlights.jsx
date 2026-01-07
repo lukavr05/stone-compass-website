@@ -6,25 +6,31 @@ import { useState } from 'react';
 export default function Highlights() {
   const [showLyrics, setShowLyrics] = useState(false);
 
-  const lyrics = `
-    the stars poke holes in the night
-    and the longer you hold year head to the sky
-    the more will appear
-    
-    the wind carries your laughter
-    and when you listen with joy
-    you will finally hear
+  const lyrics = `there's no
+there's no comfort in my bed
+because i'm
+haunted by
+all the things i've left unsaid
 
-    if i could reach into the cold
-    and pluck a star from where it hangs
-    only to find it dead in my hands
-    so cold
-    and heavy
+oh i've heard it all before
+you can find me on the floor
+because time won't
+heal the scars
+if i forget it
 
-    damn this simple heart
-    damn everything i thought i was
-    i saw the night approaching
-    but still i fought
+i know i can't be something
+that lasts forever
+but i hop i made you smile
+
+i know that these words 
+betray my mind
+and every conversation 
+ends in goodbye
+
+i've heard it all before
+and you can find me on the floor
+because time on't dim the stars
+if i don't let it
 `;
 
   const toggleLyrics = () => {
@@ -52,14 +58,14 @@ export default function Highlights() {
           display: 'grid',
           gridTemplateColumns: { xs: '1fr', md: '420px 1fr' },
           gap: '3rem',
-          maxWidth: '1200px',
+          maxWidth: '1400px',
           mx: 'auto'
         }}
       >
         {/* Cover Art */}
         <Box
           component="img"
-          src="/images/night.jpg"
+          src="/images/find_me_on_the_floor_cover.JPEG"
           alt="Latest Release Cover"
           sx={{
             width: '100%',
@@ -88,7 +94,7 @@ export default function Highlights() {
                 variant="h3"
                 sx={{ mt: 1, fontWeight: 'bold' }}
               >
-                night
+                find me on the floor
               </Typography>
             </Box>
 
@@ -100,6 +106,7 @@ export default function Highlights() {
                 mt: 1,
                 borderColor: '#aaa',
                 color: '#aaa',
+                fontFamily: '"Cascadia Code", monospace',
                 fontWeight: 'bold',
                 textTransform: 'none',
                 fontSize: '0.9rem',
@@ -108,15 +115,13 @@ export default function Highlights() {
                 transition: 'all 0.3s ease',
                 whiteSpace: 'nowrap',
                 '&:hover': {
-                  backgroundColor: '#fff',
-                  color: '#000',
+                  color: '#fff',
                   borderColor: '#fff',
-                  transform: 'translateY(-2px)',
                   boxShadow: '0 4px 12px rgba(255,255,255,0.2)'
                 }
               }}
             >
-              {showLyrics ? 'Hide Lyrics' : 'View Lyrics'}
+              {showLyrics ? 'hide hyrics' : 'show lyrics'}
             </Button>
           </Box>
 
@@ -141,18 +146,6 @@ export default function Highlights() {
                     backdropFilter: 'blur(10px)'
                   }}
                 >
-                  <Typography
-                    variant="h6"
-                    sx={{
-                      mb: 2,
-                      fontFamily: '"Cascadia Code", monospace',
-                      fontWeight: 'bold',
-                      color: '#fff',
-                      opacity: 0.9
-                    }}
-                  >
-                    Lyrics
-                  </Typography>
                   <Typography
                     component="pre"
                     sx={{

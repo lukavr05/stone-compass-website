@@ -47,7 +47,7 @@ const streamingLinks = platforms;
             left: 0,
             right: 0,
             height: '120%',
-            backgroundImage: 'url(/images/IMG_5449.JPG)',
+            backgroundImage: 'url(/images/scpromo3.jpg)',
             backgroundSize: 'cover',
             backgroundPosition: 'top center',
             willChange: 'transform'
