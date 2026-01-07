@@ -13,8 +13,6 @@ function Home() {
   const yParallax = useTransform(scrollY, [0, 600], [0, 120]);
 
 
-const streamingLinks = platforms;
-
   const handlePlatformClick = (url) => {
     window.open(url, '_blank');
   };
@@ -28,7 +26,6 @@ const streamingLinks = platforms;
       overflow: 'auto',
       position: 'relative'
     }}>
-      
       
       <Box
         component={motion.div}
@@ -74,7 +71,7 @@ const streamingLinks = platforms;
           <Box
             component={motion.div}
             animate={{
-              width: isExpanded ? '440px' : '228px',
+              width: isExpanded ? '600px' : '240px',
               backgroundColor: isExpanded ? '#ffffff' : 'transparent',
             }}
             transition={{
@@ -85,6 +82,7 @@ const streamingLinks = platforms;
             sx={{
               color: isExpanded ? '#000000' : '#ffffff',
               border: '2px solid #ffffff',
+              borderRadius: '5px',
               height: '60px',
               fontSize: '1.8rem',
               fontWeight: 'bold',
@@ -127,7 +125,7 @@ const streamingLinks = platforms;
                     zIndex: 1
                   }}
                 >
-                  {streamingLinks.map((platform, index) => (
+                  {platforms.map((platform, index) => (
                     <motion.div
                       key={platform.name}
                       initial={{ x: -20, opacity: 0 }}
