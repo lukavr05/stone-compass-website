@@ -43,7 +43,7 @@ export const platforms = [
   {
     name: 'TIDAL',
     icon: siTidal,
-    color: '#000000',
+    color: '#00FFFF',
     url: 'https://tidal.com/artist/46884128'
   },
   {
