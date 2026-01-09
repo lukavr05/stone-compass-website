@@ -264,7 +264,7 @@ export default function Events() {
               fontSize: '0.85rem'
             }}
           >
-            More shows to be announced soon. Follow us on social media for updates.
+            More shows to be announced soon. Check our social media for more info!
           </Typography>
         </Box>
       </Container>
