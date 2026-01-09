@@ -12,12 +12,10 @@ export default function Events() {
     offset: ["start start", "end start"]
   });
 
-  // Parallax effect for the image (moves both up and down)
   const yParallax = useTransform(scrollYProgress, [0, 1], [-100, 100]);
 
-  // Placeholder show data - replace with actual show info
   const nextShow = {
-    title: "Stone Compass Live",
+    title: "stone compass (live for real)",
     venue: "O2 Academy Islington",
     location: "London",
     date: "Jan 19, 2025",
@@ -106,7 +104,7 @@ export default function Events() {
             variant="h2"
             sx={{
               fontWeight: 'bold',
-              fontSize: { xs: '2.5rem', md: '3.5rem' },
+              fontSize: { xs: '2.2rem', md: '3rem' },
               mb: 4,
               lineHeight: 1.2
             }}
@@ -232,11 +230,11 @@ export default function Events() {
 
           {/* Get Tickets Button */}
           <Button
-            variant="contained"
+            variant="outlined"
             onClick={() => window.open(nextShow.ticketUrl, '_blank')}
             sx={{
-              backgroundColor: '#fff',
-              color: '#000',
+              backgroundColor: 'transparent',
+              color: '#fff',
               fontFamily: '"Cascadia Code", monospace',
               fontSize: '1.1rem',
               fontWeight: 'bold',
@@ -246,8 +244,8 @@ export default function Events() {
               border: '2px solid #fff',
               transition: 'all 0.3s ease',
               '&:hover': {
-                backgroundColor: 'transparent',
-                color: '#fff',
+                backgroundColor: '#fff',
+                color: '#000',
                 transform: 'scale(1.05)',
                 boxShadow: '0 0 30px rgba(255, 255, 255, 0.3)'
               }

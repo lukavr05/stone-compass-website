@@ -3,6 +3,7 @@ import { Box, IconButton } from '@mui/material';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import Highlights from './Highlights';
 import Events from './Events.jsx';
+import Media from './Media.jsx';
 import { platforms, BrandIcon } from '../constants/platforms.jsx';
 
 function Home() {
@@ -182,23 +183,8 @@ function Home() {
         }}
       />
       <Highlights />
-      <Events />     
-
-      <Box
-        id="media"
-        sx={{
-          minHeight: '100vh',
-          backgroundColor: '#fff',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          px: { xs: 3, md: 8 },
-          scrollSnapAlign: 'start',
-          scrollSnapStop: 'normal',
-        }}
-      >
-        {/* Media content will go here */}
-      </Box>
+      <Events />
+      <Media />
     </Box>
   );
 }
