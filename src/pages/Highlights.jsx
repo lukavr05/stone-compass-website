@@ -98,7 +98,9 @@ if i don't let it
         color: '#fff',
         display: 'flex',
         alignItems: 'center',
-        px: { xs: 3, md: 8 }
+        px: { xs: 3, md: 8 },
+        scrollSnapAlign: 'start',
+        scrollSnapStop: 'normal',
       }}
     >
       <Box

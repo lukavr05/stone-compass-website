@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Box, IconButton } from '@mui/material';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import Highlights from './Highlights';
+import Events from './Events.jsx';
 import { platforms, BrandIcon } from '../constants/platforms.jsx';
 
 function Home() {
@@ -24,10 +25,13 @@ function Home() {
       flexDirection: 'column',
       fontFamily: '"Courier New", Courier, monospace',
       overflow: 'auto',
-      position: 'relative'
+      position: 'relative',
+      scrollSnapType: 'y proximity',
+      scrollBehavior: 'smooth',
     }}>
       
       <Box
+        id="home"
         component={motion.div}
         sx={{
           height: '74vh',
@@ -44,7 +48,7 @@ function Home() {
             left: 0,
             right: 0,
             height: '120%',
-            backgroundImage: 'url(/images/scpromo3.jpg)',
+            backgroundImage: 'url(/images/rehersal2.JPEG)',
             backgroundSize: 'cover',
             backgroundPosition: 'top center',
             willChange: 'transform'
@@ -71,7 +75,7 @@ function Home() {
           <Box
             component={motion.div}
             animate={{
-              width: isExpanded ? '560px' : '240px',
+              width: isExpanded ? '600px' : '240px',
               backgroundColor: isExpanded ? '#ffffff' : 'transparent',
             }}
             transition={{
@@ -84,9 +88,9 @@ function Home() {
               border: '2px solid #ffffff',
               borderRadius: '5px',
               height: '60px',
-              fontFamily: '"Konkhmer Sleokchher", serif',
               fontSize: '1.8rem',
               fontWeight: 'bold',
+              fontFamily: '"Cascadia Code", monospace',
               textTransform: 'lowercase',
               cursor: 'pointer',
               boxShadow: isExpanded ? '0 0 20px rgba(255, 255, 255, 0.5)' : 'none',
@@ -178,6 +182,23 @@ function Home() {
         }}
       />
       <Highlights />
+      <Events />     
+
+      <Box
+        id="media"
+        sx={{
+          minHeight: '100vh',
+          backgroundColor: '#fff',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          px: { xs: 3, md: 8 },
+          scrollSnapAlign: 'start',
+          scrollSnapStop: 'normal',
+        }}
+      >
+        {/* Media content will go here */}
+      </Box>
     </Box>
   );
 }
