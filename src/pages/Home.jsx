@@ -176,8 +176,8 @@ function Home() {
         sx={{
           position: 'absolute',
           left: { xs: '2rem', md: '4rem' },
-          top: {xs: '53vh', md: '50vh', lg: '44vh'},
-          width: { xs: '600px', md: '700px', lg: '960px' },
+          top: {xs: '53vh', md: '50vh', lg: '44vhpx', xl: '44vh' },
+          width: { xs: '600px', md: '700px', lg: '960px', xl: '960px' },
           height: 'auto',
           zIndex: 10
         }}
