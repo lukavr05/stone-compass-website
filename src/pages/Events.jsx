@@ -18,7 +18,7 @@ export default function Events() {
     title: "stone compass (live for real)",
     venue: "O2 Academy Islington",
     location: "London",
-    date: "Jan 19, 2025",
+    date: "Jan 29, 2025",
     time: "8:00 PM",
     doors: "6:00 PM",
     ticketUrl: "https://bit.ly/stonecompass",
@@ -235,6 +235,7 @@ export default function Events() {
             sx={{
               backgroundColor: 'transparent',
               color: '#fff',
+              width: '100%',
               fontFamily: '"Cascadia Code", monospace',
               fontSize: '1.1rem',
               fontWeight: 'bold',
