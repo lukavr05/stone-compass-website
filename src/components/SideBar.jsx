@@ -60,7 +60,7 @@ function SideBar() {
             top: '38%',
             transform: 'translateY(-50%)',
             zIndex: 1000,
-            display: 'flex',
+            display: {xs: 'none', md: 'flex'},
             flexDirection: 'column',
             gap: 1,
             backgroundColor: 'rgba(0, 0, 0, 0.3)',
