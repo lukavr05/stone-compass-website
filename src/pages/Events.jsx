@@ -76,7 +76,7 @@ export default function Events() {
       </Box>
 
       {/* Show Information */}
-      <Container maxWidth="md" sx={{ py: 8, position: 'relative' }}>
+      <Container maxWidth="md" sx={{ py: { xs: 4, md: 8 }, px: { xs: 2, sm: 3, md: 8 }, position: 'relative' }}>
         <Box
           component={motion.div}
           initial={{ opacity: 0, y: 40 }}
