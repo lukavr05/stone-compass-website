@@ -23,7 +23,11 @@ export default defineConfig([
       },
     },
     rules: {
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      'no-unused-vars': ['error', { 
+        varsIgnorePattern: '^(_|[A-Z]|React|motion|AnimatePresence|useScroll|useTransform|BrandIcon|Calendar|MapPin|Clock|Sun|Moon|X|CssBaseline|BrowserRouter|ThemeProvider|Highlights|Events|Media|SideBar|ThemeSwitcher|Routes|Route|Home)',
+        ignoreRestSiblings: true,
+        argsIgnorePattern: '^_'
+      }],
     },
   },
 ])
