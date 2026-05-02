@@ -1,25 +1,28 @@
-import { useState, useEffect } from 'react';
-import { Box, Button } from '@mui/material';
+ 
+import { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTheme } from '../hooks/useTheme';
+import { fonts } from '../theme/index';
 
 function SideBar() {
+  const { themeName } = useTheme();
   const [isVisible, setIsVisible] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
 
-  const navItems = [
+  const isDark = themeName === 'dark';
+
+  const navItems = useMemo(() => [
     { id: 'home', label: 'home' },
     { id: 'release', label: 'latest' },
     { id: 'events', label: 'events' },
     { id: 'media', label: 'media' },
-  ];
+  ], []);
 
   useEffect(() => {
     const handleScroll = () => {
-      // Show navbar after scrolling 100vh (past hero section)
       const scrollPosition = window.scrollY;
       setIsVisible(scrollPosition > window.innerHeight);
 
-      // Determine active section
       const sections = navItems.map(item => document.getElementById(item.id));
       const scrollPos = scrollPosition + window.innerHeight / 2;
 
@@ -33,10 +36,10 @@ function SideBar() {
     };
 
     window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Check initial position
+    handleScroll();
 
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [navItems]);
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
@@ -45,68 +48,46 @@ function SideBar() {
     }
   };
 
+  const textColor = isDark ? 'text-white' : 'text-black';
+  const secondaryColor = isDark ? 'text-gray-400' : 'text-gray-600';
+  const activeColor = isDark ? 'font-bold' : 'font-semibold';
+  const hoverBg = isDark ? 'hover:bg-white/10' : 'hover:bg-black/10';
+  const indicatorBg = isDark ? 'bg-white' : 'bg-black';
+  const navBg = isDark ? 'bg-black/30' : 'bg-white/30';
+  const borderColor = isDark ? 'border-white/10' : 'border-black/10';
+
   return (
     <AnimatePresence>
       {isVisible && (
-        <Box
-          component={motion.nav}
+        <motion.nav
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -20 }}
           transition={{ duration: 0.3 }}
-          sx={{
-            position: 'fixed',
-            left: '2rem',
-            top: '38%',
-            transform: 'translateY(-50%)',
-            zIndex: 1000,
-            display: {xs: 'none', md: 'flex'},
-            flexDirection: 'column',
-            gap: 1,
-            backgroundColor: 'rgba(0, 0, 0, 0.3)',
-            backdropFilter: 'blur(6px)',
-            padding: '1.5rem 1rem',
-            borderRadius: '12px',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
-          }}
+          className={`fixed left-8 top-[38%] -translate-y-1/2 z-50 flex flex-col gap-1 ${navBg} backdrop-blur-sm px-4 py-6 rounded-xl border ${borderColor} hidden md:flex`}
+          style={{ fontFamily: fonts.code }}
         >
           {navItems.map((item) => (
-            <Button
+            <button
               key={item.id}
               onClick={() => scrollToSection(item.id)}
-              sx={{
-                color: activeSection === item.id ? '#fff' : 'rgba(255, 255, 255, 0.5)',
-                fontFamily: '"Cascadia Code", monospace',
-                fontSize: '0.9rem',
-                fontWeight: activeSection === item.id ? 'bold' : 'normal',
-                textTransform: 'lowercase',
-                padding: '0.5rem 1rem',
-                minWidth: 'auto',
-                justifyContent: 'flex-start',
-                position: 'relative',
-                transition: 'all 0.3s ease',
-                '&:hover': {
-                  color: '#fff',
-                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                },
-                '&::before': {
-                  content: '""',
-                  position: 'absolute',
-                  left: 0,
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                  width: '3px',
-                  height: activeSection === item.id ? '100%' : '0%',
-                  backgroundColor: '#fff',
-                  transition: 'height 0.3s ease',
-                  borderRadius: '0 2px 2px 0',
-                }
-              }}
+              className={`
+                relative px-4 py-2 text-sm lowercase transition-all duration-300 text-left
+                ${activeSection === item.id ? `${textColor} ${activeColor}` : secondaryColor}
+                ${hoverBg} rounded
+              `}
+              style={{ fontFamily: fonts.code, minWidth: 'auto' }}
             >
+              {activeSection === item.id && (
+                <span
+                  className={`absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-full ${indicatorBg} rounded-r`}
+                  style={{ transition: 'height 0.3s ease' }}
+                />
+              )}
               {item.label}
-            </Button>
+            </button>
           ))}
-        </Box>
+        </motion.nav>
       )}
     </AnimatePresence>
   );

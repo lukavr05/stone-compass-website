@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import {
   siSpotify,
   siApplemusic,
@@ -7,7 +8,7 @@ import {
   siTiktok,
 } from 'simple-icons';
 
-export const platforms = [
+const platforms = [
   {
     name: 'Spotify',
     icon: siSpotify,
@@ -76,7 +77,7 @@ export const platforms = [
   }
 ];
 
-export const BrandIcon = ({ icon, size = 24 }) => {
+const BrandIcon = ({ icon, size = 24 }) => {
   if (typeof icon === 'object' && icon.path) {
     // This is a simple-icons object
     return (
@@ -94,3 +95,6 @@ export const BrandIcon = ({ icon, size = 24 }) => {
   // This is already a JSX element
   return icon;
 };
+
+export { platforms, BrandIcon };
+export default platforms;

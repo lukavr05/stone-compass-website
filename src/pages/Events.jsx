@@ -1,11 +1,12 @@
-import { Box, Typography, Button, Container } from '@mui/material';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import { useTheme } from '../hooks/useTheme';
+import { fonts } from '../theme/index';
+import { Calendar, MapPin, Clock } from 'lucide-react';
 
 export default function Events() {
+  const { themeName } = useTheme();
+  const isDark = themeName === 'dark';
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -22,253 +23,92 @@ export default function Events() {
     time: "8:00 PM",
     doors: "6:00 PM",
     ticketUrl: "https://bit.ly/stonecompass",
-    
   };
 
+  const bgColor = isDark ? 'bg-black' : 'bg-white';
+  const textColor = isDark ? 'text-white' : 'text-black';
+  const mutedColor = isDark ? 'text-gray-400' : 'text-gray-600';
+  const glassBg = isDark ? 'bg-white/5' : 'bg-black/5';
+  const glassBorder = isDark ? 'border-white/10' : 'border-black/10';
+
   return (
-    <Box
+    <div
       id="events"
       ref={containerRef}
-      sx={{
-        minHeight: '100vh',
-        backgroundColor: '#000',
-        color: '#fff',
-        scrollSnapAlign: 'start',
-        scrollSnapStop: 'normal',
-        position: 'relative',
-        overflow: 'hidden'
-      }}
+      className={`min-h-screen ${bgColor} ${textColor} scroll-snap-start relative overflow-hidden`}
     >
-      {/* Parallax Header Image */}
-      <Box
-        sx={{
-          height: '50vh',
-          position: 'relative',
-          overflow: 'hidden'
-        }}
-      >
-        <Box
-          component={motion.div}
+      <div className="h-[50vh] relative overflow-hidden">
+        <motion.div
           style={{ y: yParallax }}
-          sx={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            height: '120%',
-            backgroundImage: 'url(/images/rehearsal1.JPEG)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'top center',
-            willChange: 'transform'
-          }}
+          className="absolute inset-0 -top-[20%] bg-cover bg-top"
+          style={{ backgroundImage: 'url(/images/rehearsal1.JPEG)' }}
         />
-        {/* Dark overlay for text readability */}
-        <Box
-          sx={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: 'linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.8))'
-          }}
-        />
-      </Box>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-black/80" />
+      </div>
 
-      {/* Show Information */}
-      <Container maxWidth="md" sx={{ py: { xs: 4, md: 8 }, px: { xs: 2, sm: 3, md: 8 }, position: 'relative' }}>
-        <Box
-          component={motion.div}
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 md:px-8 py-8 md:py-16 relative">
+        <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          {/* Section Header */}
-          <Typography
-            variant="overline"
-            sx={{
-              letterSpacing: '0.2em',
-              color: '#aaa',
-              fontFamily: '"Cascadia Code", monospace',
-              fontSize: '1rem',
-              display: 'block',
-              mb: 2
-            }}
+          <span
+            className={`block text-sm tracking-[0.2em] ${mutedColor} mb-2`}
+            style={{ fontFamily: fonts.code }}
           >
             Upcoming_Shows
-          </Typography>
+          </span>
 
-          {/* Show Title */}
-          <Typography
-            variant="h2"
-            sx={{
-              fontWeight: 'bold',
-              fontSize: { xs: '2.2rem', md: '3rem' },
-              mb: 4,
-              lineHeight: 1.2
-            }}
-          >
+          <h2 className="text-3xl md:text-4xl font-bold mb-8 leading-tight">
             {nextShow.title}
-          </Typography>
+          </h2>
 
-          {/* Show Details Grid */}
-          <Box
-            sx={{
-              display: 'grid',
-              gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' },
-              gap: 3,
-              mb: 4,
-              p: 4,
-              backgroundColor: 'rgba(255, 255, 255, 0.05)',
-              borderRadius: '12px',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              backdropFilter: 'blur(10px)'
-            }}
-          >
-            {/* Date */}
-            <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 2 }}>
-              <CalendarTodayIcon sx={{ color: '#aaa', mt: 0.5 }} />
-              <Box>
-                <Typography
-                  variant="caption"
-                  sx={{
-                    color: '#aaa',
-                    fontFamily: '"Cascadia Code", monospace',
-                    display: 'block',
-                    mb: 0.5
-                  }}
-                >
-                  Date
-                </Typography>
-                <Typography
-                  sx={{
-                    fontFamily: '"Cascadia Code", monospace',
-                    fontSize: '1.1rem',
-                    fontWeight: 'bold'
-                  }}
-                >
-                  {nextShow.date}
-                </Typography>
-              </Box>
-            </Box>
+          <div className={`grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 p-6 rounded-xl border ${glassBorder} ${glassBg} backdrop-blur-sm`}>
+            <div className="flex items-start gap-3">
+              <Calendar className={mutedColor} size={20} style={{ marginTop: '2px' }} />
+              <div>
+                <span className={`block text-xs ${mutedColor} mb-1`} style={{ fontFamily: fonts.code }}>Date</span>
+                <span className="text-lg font-bold" style={{ fontFamily: fonts.code }}>{nextShow.date}</span>
+              </div>
+            </div>
 
-            {/* Time */}
-            <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 2 }}>
-              <AccessTimeIcon sx={{ color: '#aaa', mt: 0.5 }} />
-              <Box>
-                <Typography
-                  variant="caption"
-                  sx={{
-                    color: '#aaa',
-                    fontFamily: '"Cascadia Code", monospace',
-                    display: 'block',
-                    mb: 0.5
-                  }}
-                >
-                  Time
-                </Typography>
-                <Typography
-                  sx={{
-                    fontFamily: '"Cascadia Code", monospace',
-                    fontSize: '1.1rem',
-                    fontWeight: 'bold'
-                  }}
-                >
-                  {nextShow.time}
-                </Typography>
-                <Typography
-                  variant="caption"
-                  sx={{
-                    color: '#aaa',
-                    fontFamily: '"Cascadia Code", monospace'
-                  }}
-                >
-                  Doors: {nextShow.doors}
-                </Typography>
-              </Box>
-            </Box>
+            <div className="flex items-start gap-3">
+              <Clock className={mutedColor} size={20} style={{ marginTop: '2px' }} />
+              <div>
+                <span className={`block text-xs ${mutedColor} mb-1`} style={{ fontFamily: fonts.code }}>Time</span>
+                <span className="text-lg font-bold" style={{ fontFamily: fonts.code }}>{nextShow.time}</span>
+                <span className={`block text-xs ${mutedColor}`} style={{ fontFamily: fonts.code }}>Doors: {nextShow.doors}</span>
+              </div>
+            </div>
 
-            {/* Location */}
-            <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 2 }}>
-              <LocationOnIcon sx={{ color: '#aaa', mt: 0.5 }} />
-              <Box>
-                <Typography
-                  variant="caption"
-                  sx={{
-                    color: '#aaa',
-                    fontFamily: '"Cascadia Code", monospace',
-                    display: 'block',
-                    mb: 0.5
-                  }}
-                >
-                  Location
-                </Typography>
-                <Typography
-                  sx={{
-                    fontFamily: '"Cascadia Code", monospace',
-                    fontSize: '1.1rem',
-                    fontWeight: 'bold'
-                  }}
-                >
-                  {nextShow.venue}
-                </Typography>
-                <Typography
-                  variant="caption"
-                  sx={{
-                    color: '#aaa',
-                    fontFamily: '"Cascadia Code", monospace'
-                  }}
-                >
-                  {nextShow.location}
-                </Typography>
-              </Box>
-            </Box>
-          </Box>
+            <div className="flex items-start gap-3">
+              <MapPin className={mutedColor} size={20} style={{ marginTop: '2px' }} />
+              <div>
+                <span className={`block text-xs ${mutedColor} mb-1`} style={{ fontFamily: fonts.code }}>Location</span>
+                <span className="text-lg font-bold" style={{ fontFamily: fonts.code }}>{nextShow.venue}</span>
+                <span className={`block text-xs ${mutedColor}`} style={{ fontFamily: fonts.code }}>{nextShow.location}</span>
+              </div>
+            </div>
+          </div>
 
-          
-
-          {/* Get Tickets Button */}
-          <Button
-            variant="outlined"
-            onClick={() => window.open(nextShow.ticketUrl, '_blank')}
-            sx={{
-              backgroundColor: 'transparent',
-              color: '#fff',
-              width: '100%',
-              fontFamily: '"Cascadia Code", monospace',
-              fontSize: '1.1rem',
-              fontWeight: 'bold',
-              textTransform: 'lowercase',
-              padding: '1rem 3rem',
-              borderRadius: '8px',
-              border: '2px solid #fff',
-              transition: 'all 0.3s ease',
-              '&:hover': {
-                backgroundColor: '#fff',
-                color: '#000',
-                transform: 'scale(1.05)',
-                boxShadow: '0 0 30px rgba(255, 255, 255, 0.3)'
-              }
-            }}
+          <button
+            onClick={() => window.open(nextShow.ticketUrl, '_blank', 'noopener,noreferrer')}
+            className={`
+              w-full py-4 px-8 rounded-lg text-lg font-bold lowercase transition-all duration-300
+              border-2 ${isDark ? 'border-white hover:bg-white hover:text-black' : 'border-black hover:bg-black hover:text-white'}
+              ${isDark ? 'text-white' : 'text-black'}
+            `}
+            style={{ fontFamily: fonts.code }}
           >
             get_tickets
-          </Button>
+          </button>
 
-          {/* Additional Info */}
-          <Typography
-            variant="body2"
-            sx={{
-              mt: 4,
-              color: '#aaa',
-              fontFamily: '"Cascadia Code", monospace',
-              fontSize: '0.85rem'
-            }}
-          >
+          <p className={`mt-6 text-sm ${mutedColor}`} style={{ fontFamily: fonts.code }}>
             More shows to be announced soon. Check our social media for more info!
-          </Typography>
-        </Box>
-      </Container>
-    </Box>
+          </p>
+        </motion.div>
+      </div>
+    </div>
   );
 }

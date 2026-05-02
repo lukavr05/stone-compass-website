@@ -1,108 +1,61 @@
 import { useState } from 'react';
-import { Box, IconButton } from '@mui/material';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+import { useTheme } from '../hooks/useTheme';
+import { fonts } from '../theme/index';
 import Highlights from './Highlights';
 import Events from './Events.jsx';
 import Media from './Media.jsx';
 import { platforms, BrandIcon } from '../constants/platforms.jsx';
 
 function Home() {
+  const { themeName } = useTheme();
   const [isExpanded, setIsExpanded] = useState(false);
+  const isDark = themeName === 'dark';
 
   const { scrollY } = useScroll();
-
-  // Moves image slower than scroll (parallax)
   const yParallax = useTransform(scrollY, [0, 600], [0, 120]);
 
-
   const handlePlatformClick = (url) => {
-    window.open(url, '_blank');
+    window.open(url, '_blank', 'noopener,noreferrer');
   };
 
+  const bgColor = isDark ? 'bg-black' : 'bg-white';
+
   return (
-    <Box sx={{
-      minHeight: '100vh',
-      display: 'flex', 
-      flexDirection: 'column',
-      fontFamily: '"Courier New", Courier, monospace',
-      overflow: 'auto',
-      position: 'relative',
-      scrollSnapType: 'y proximity',
-      scrollBehavior: 'smooth',
-    }}>
-      
-      <Box
+    <div
+      className={`min-h-screen flex flex-col ${bgColor} overflow-auto relative scroll-snap-y scroll-smooth`}
+      style={{ fontFamily: fonts.courier }}
+    >
+      <div
         id="home"
-        component={motion.div}
-        sx={{
-          height: '74vh',
-          position: 'relative',
-          overflow: 'hidden'
-        }}
+        className="h-[74vh] relative overflow-hidden"
       >
-        <Box
-          component={motion.div}
+        <motion.div
           style={{ y: yParallax }}
-          sx={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            height: '120%',
-            backgroundImage: 'url(/images/rehersal2.JPEG)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'top center',
-            willChange: 'transform'
-          }}
+          className="absolute inset-0 -top-[20%] bg-cover bg-top"
+          style={{ backgroundImage: 'url(/images/rehersal2.JPEG)' }}
         />
-      </Box>
+      </div>
 
-
-      {/* Bottom 1/3 - Black */}
-      <Box sx={{
-        height: '26vh',
-        backgroundColor: '#000000',
-        display: 'flex',
-        alignItems: 'flex-start',
-        paddingLeft: { xs: '2rem', md: '4rem' },
-        paddingTop: '3rem'
-      }}>
-        {/* Listen Now Button */}
-        <Box
-          component={motion.div}
+      <div
+        className={`h-[26vh] ${bgColor} flex items-start pl-8 pt-12 md:pl-16`}
+      >
+        <motion.div
           onMouseEnter={() => setIsExpanded(true)}
           onMouseLeave={() => setIsExpanded(false)}
         >
-          <Box
-            component={motion.div}
+          <motion.div
             animate={{
               width: isExpanded ? '600px' : '240px',
-              backgroundColor: isExpanded ? '#ffffff' : 'transparent',
+              backgroundColor: isExpanded ? (isDark ? '#ffffff' : '#1976d2') : 'transparent',
             }}
-            transition={{
-              duration: 0.4,
-              ease: 'easeInOut'
-            }}
-            
-            sx={{
-              color: isExpanded ? '#000000' : '#ffffff',
-              border: '2px solid #ffffff',
-              borderRadius: '5px',
-              height: '60px',
-              fontSize: '1.8rem',
-              fontWeight: 'bold',
-              fontFamily: '"Cascadia Code", monospace',
-              textTransform: 'lowercase',
-              cursor: 'pointer',
-              boxShadow: isExpanded ? '0 0 20px rgba(255, 255, 255, 0.5)' : 'none',
-              position: 'relative',
-              overflow: 'hidden',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'flex-start',
-              paddingLeft: '2rem',
-              transition: 'color 0.3s ease, box-shadow 0.3s ease'
-            }}
+            transition={{ duration: 0.4, ease: 'easeInOut' }}
+            className={`
+              ${isExpanded ? (isDark ? 'text-black' : 'text-white') : (isDark ? 'text-white' : 'text-black')}
+              border-2 ${isDark ? 'border-white' : 'border-black'} rounded-md h-[60px] text-[1.8rem] font-bold lowercase cursor-pointer relative overflow-hidden flex items-center pl-8 transition-all duration-300
+              ${isExpanded ? 'shadow-[0_0_20px_rgba(255,255,255,0.5)]' : ''}
+            `}
+            style={{ fontFamily: fonts.code }}
           >
             <AnimatePresence mode="wait">
               {!isExpanded ? (
@@ -112,7 +65,7 @@ function Home() {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.2 }}
-                  style={{ position: 'relative', zIndex: 1 }}
+                  className="relative z-10"
                 >
                   listen_now
                 </motion.span>
@@ -123,69 +76,51 @@ function Home() {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.2, delay: 0.2 }}
-                  style={{ 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    gap: '16px',
-                    position: 'relative',
-                    zIndex: 1
-                  }}
+                  className="flex items-center gap-4 relative z-10"
                 >
                   {platforms.map((platform, index) => (
                     <motion.div
                       key={platform.name}
                       initial={{ x: -20, opacity: 0 }}
                       animate={{ x: 0, opacity: 1 }}
-                      transition={{ 
+                      transition={{
                         type: 'spring',
                         stiffness: 300,
                         damping: 20,
                         delay: 0.1 + (index * 0.05)
                       }}
                     >
-                      <IconButton
+                      <button
                         onClick={(e) => {
                           e.stopPropagation();
                           handlePlatformClick(platform.url);
                         }}
-                        sx={{
-                          color: 'inherit',
-                          transition: 'all 0.25s ease',
-                          '&:hover': {
-                            color: platform.color,
-                            transform: 'scale(1.1)',
-                          }
-                        }}
+                        className={`transition-all duration-250 hover:scale-110 ${isExpanded ? (isDark ? 'text-black' : 'text-white') : (isDark ? 'text-white' : 'text-black')}`}
+                        style={{ color: isExpanded ? undefined : platform.color }}
                       >
                         <BrandIcon icon={platform.icon} />
-                      </IconButton>
+                      </button>
                     </motion.div>
                   ))}
                 </motion.div>
               )}
             </AnimatePresence>
-          </Box>
-        </Box>
-      </Box>
+          </motion.div>
+        </motion.div>
+      </div>
 
-      {/* Logo - positioned above the black section with padding */}
-      <Box
-        component="img"
+      <img
         src="/STONE COMPASS.png"
         alt="Stone Compass"
-        sx={{
-          position: 'absolute',
-          left: { xs: '2rem', md: '4rem' },
-          top: {xs: '53vh', md: '50vh', lg: '44vhpx', xl: '44vh' },
-          width: { xs: '600px', md: '700px', lg: '960px', xl: '960px' },
-          height: 'auto',
-          zIndex: 10
+        className="absolute left-8 md:left-16 z-10 w-[600px] md:w-[700px] lg:w-[960px] h-auto"
+        style={{
+          top: isDark ? '53vh' : '53vh',
         }}
       />
       <Highlights />
       <Events />
       <Media />
-    </Box>
+    </div>
   );
 }
 
