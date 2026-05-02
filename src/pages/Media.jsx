@@ -1,29 +1,15 @@
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { useTheme } from '../hooks/useTheme';
 import { fonts } from '../theme/index';
 import { BrandIcon } from '../constants/platforms.jsx';
+import { useGallery } from '../hooks/useGallery';
 import { X } from 'lucide-react';
 import {
   siYoutubemusic,
   siInstagram,
   siTiktok,
 } from 'simple-icons';
-
-const mediaItems = [
-  { id: 1, type: 'photo', src: '/images/luka1.jpg', alt: 'Stone Compass Live Performance' },
-  { id: 2, type: 'photo', src: '/images/scpromo2.jpg', alt: 'Night Single Cover' },
-  { id: 3, type: 'photo', src: '/images/scpromo4.jpg', alt: 'Reflection Single Cover' },
-  { id: 4, type: 'photo', src: '/images/IMG_1646.jpg', alt: 'Concert Photo' },
-  { id: 5, type: 'photo', src: '/images/IMG_6009.JPG', alt: 'Behind the Scenes' },
-  { id: 6, type: 'photo', src: '/images/IMG_6151.JPG', alt: 'Band Photo' },
-  { id: 7, type: 'photo', src: '/images/IMG_6107.JPG', alt: 'Festival Performance' },
-  { id: 8, type: 'photo', src: '/images/scpromo3.jpg', alt: 'Recording Session' },
-  { id: 9, type: 'photo', src: '/images/IMG_5636.JPEG', alt: 'Venue Photo' },
-  { id: 10, type: 'photo', src: '/images/IMG_5449.JPG', alt: 'Equipment Setup' },
-  { id: 11, type: 'photo', src: '/images/IMG_6117.JPG', alt: 'Equipment Setup' },
-  { id: 12, type: 'photo', src: '/images/rosie.jpg', alt: 'Band Photo' }
-];
 
 const mediaPlatforms = [
   { name: 'YouTube', icon: siYoutubemusic, color: '#FF0000', url: 'https://www.youtube.com/channel/UCDxrFlpeL4LB40u27yVfXjg' },
@@ -34,6 +20,7 @@ const mediaPlatforms = [
 export default function Media() {
   const { themeName } = useTheme();
   const isDark = themeName === 'dark';
+  const { images } = useGallery();
   const [selectedImage, setSelectedImage] = useState(null);
   const containerRef = useRef(null);
 
@@ -82,7 +69,7 @@ export default function Media() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="columns-2 sm:columns-2 md:columns-2 lg:columns-3 gap-6 mb-8"
         >
-          {mediaItems.map((item, index) => (
+          {images.map((item, index) => (
             <motion.div
               key={item.id}
               initial={{ opacity: 0, scale: 0.9 }}
