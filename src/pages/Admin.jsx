@@ -98,8 +98,65 @@ export default function Admin() {
   const [eventForm, setEventForm] = useState(initialEventForm);
   const [editingEventId, setEditingEventId] = useState(null);
   const [showEventForm, setShowEventForm] = useState(false);
+  const [unsavedChanges, setUnsavedChanges] = useState({});
+  const [showLogoutDialog, setShowLogoutDialog] = useState(false);
 
   const adminPassword = import.meta.env.VITE_ADMIN_PASSWORD;
+
+  const handleUnsavedChange = (tab, hasChanges, summary) => {
+    setUnsavedChanges((prev) => {
+      const newChanges = { ...prev };
+      if (hasChanges) {
+        newChanges[tab] = summary;
+      } else {
+        delete newChanges[tab];
+      }
+      return newChanges;
+    });
+  };
+
+  const hasAnyUnsavedChanges = Object.keys(unsavedChanges).length > 0;
+
+  const getChangeSummaryText = () => {
+    const parts = [];
+    if (unsavedChanges.gallery) {
+      const { added, removed } = unsavedChanges.gallery;
+      if (added > 0 && removed > 0) {
+        parts.push(`added ${added} and removed ${removed} photos to/from gallery`);
+      } else if (added > 0) {
+        parts.push(`added ${added} photo${added > 1 ? 's' : ''} to gallery`);
+      } else if (removed > 0) {
+        parts.push(`removed ${removed} photo${removed > 1 ? 's' : ''} from gallery`);
+      }
+    }
+    if (unsavedChanges.release) {
+      parts.push('edited latest release');
+    }
+    if (unsavedChanges.events) {
+      parts.push('edited event');
+    }
+    return parts.join(', ');
+  };
+
+  const handleLogoutClick = () => {
+    if (hasAnyUnsavedChanges) {
+      setShowLogoutDialog(true);
+    } else {
+      setIsAuthenticated(false);
+    }
+  };
+
+  const handleLogoutSave = () => {
+    setUnsavedChanges({});
+    setShowLogoutDialog(false);
+    setIsAuthenticated(false);
+  };
+
+  const handleLogoutDiscard = () => {
+    setUnsavedChanges({});
+    setShowLogoutDialog(false);
+    setIsAuthenticated(false);
+  };
 
   const bgColor = isDark ? 'bg-black' : 'bg-white';
   const textColor = isDark ? 'text-white' : 'text-black';
@@ -149,12 +206,18 @@ export default function Admin() {
     setEventForm(initialEventForm);
     setEditingEventId(null);
     setShowEventForm(false);
+    setUnsavedChanges((prev) => {
+      const newChanges = { ...prev };
+      delete newChanges.events;
+      return newChanges;
+    });
   };
 
   const handleEventEdit = (event) => {
     setEventForm(event);
     setEditingEventId(event.id);
     setShowEventForm(true);
+    setUnsavedChanges((prev) => ({ ...prev, events: { edited: true } }));
   };
 
   const handleEventDelete = (id) => {
@@ -167,6 +230,11 @@ export default function Admin() {
     setEventForm(initialEventForm);
     setEditingEventId(null);
     setShowEventForm(false);
+    setUnsavedChanges((prev) => {
+      const newChanges = { ...prev };
+      delete newChanges.events;
+      return newChanges;
+    });
   };
 
   if (!isAuthenticated) {
@@ -181,7 +249,7 @@ export default function Admin() {
             Admin Dashboard
           </h1>
           <button
-            onClick={handleLogout}
+            onClick={handleLogoutClick}
             className={`px-4 py-2 rounded-lg border ${borderColor}`}
           >
             Logout
@@ -216,7 +284,10 @@ export default function Admin() {
                 Events ({events.length})
               </h2>
               <button
-                onClick={() => setShowEventForm(true)}
+                onClick={() => {
+                  setShowEventForm(true);
+                  setUnsavedChanges((prev) => ({ ...prev, events: { edited: true } }));
+                }}
                 className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm ${isDark ? 'bg-white text-black' : 'bg-black text-white'}`}
               >
                 <Plus size={16} />
@@ -389,11 +460,49 @@ export default function Admin() {
         )}
 
         {activeTab === 'gallery' && (
-          <GalleryManager isDark={isDark} />
+          <GalleryManager isDark={isDark} onUnsavedChange={(hasChanges, summary) => handleUnsavedChange('gallery', hasChanges, summary)} />
         )}
 
         {activeTab === 'release' && (
-          <ReleaseManager isDark={isDark} />
+          <ReleaseManager isDark={isDark} onUnsavedChange={(hasChanges, summary) => handleUnsavedChange('release', hasChanges, summary)} />
+        )}
+
+        {showLogoutDialog && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+            <div className={`max-w-md p-6 rounded-xl border ${borderColor} ${bgColor}`}>
+              <h3 className="text-lg font-bold mb-2" style={{ fontFamily: fonts.code }}>
+                Unsaved Changes
+              </h3>
+              <p className={`mb-6 ${mutedColor}`}>
+                You have unsaved changes that will be lost:
+              </p>
+              <ul className={`mb-6 space-y-1 ${mutedColor}`}>
+                {unsavedChanges.gallery && (
+                  <li>
+                    {unsavedChanges.gallery.added > 0 && `added ${unsavedChanges.gallery.added} photo${unsavedChanges.gallery.added > 1 ? 's' : ''} to gallery`}
+                    {unsavedChanges.gallery.added > 0 && unsavedChanges.gallery.removed > 0 && ' and '}
+                    {unsavedChanges.gallery.removed > 0 && `removed ${unsavedChanges.gallery.removed} photo${unsavedChanges.gallery.removed > 1 ? 's' : ''} from gallery`}
+                  </li>
+                )}
+                {unsavedChanges.release && <li>edited latest release</li>}
+                {unsavedChanges.events && <li>edited event</li>}
+              </ul>
+              <div className="flex gap-2">
+                <button
+                  onClick={handleLogoutSave}
+                  className={`flex-1 px-4 py-2 rounded-lg ${isDark ? 'bg-white text-black' : 'bg-black text-white'}`}
+                >
+                  Save & Logout
+                </button>
+                <button
+                  onClick={handleLogoutDiscard}
+                  className={`flex-1 px-4 py-2 rounded-lg border ${borderColor}`}
+                >
+                  Discard & Logout
+                </button>
+              </div>
+            </div>
+          </div>
         )}
       </div>
     </div>
