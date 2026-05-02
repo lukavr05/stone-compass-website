@@ -36,7 +36,7 @@ export default function Highlights() {
           style={{ boxShadow: isDark ? '0 0 40px rgba(255,255,255,0.19)' : '0 0 40px rgba(0,0,0,0.19)' }}
         />
 
-        <div>
+        <div className="flex flex-col justify-center h-full">
           <span
             className={`block text-sm tracking-[0.2em] ${mutedColor}`}
             style={{ fontFamily: fonts.code }}
@@ -44,14 +44,14 @@ export default function Highlights() {
             Latest_Release
           </span>
 
-          <h3 className="text-2xl font-bold mt-1">
+          <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold mt-1">
             {release.title}
           </h3>
 
           <button
             onClick={() => setShowLyrics(!showLyrics)}
             className={`
-              mt-3 px-5 py-2 rounded text-sm font-bold transition-all duration-300 whitespace-nowrap
+              mt-3 px-5 py-2 rounded text-sm font-bold transition-all duration-300 whitespace-nowrap w-fit
               border ${isDark ? 'border-gray-400 text-gray-400 hover:border-white hover:text-white' : 'border-gray-600 text-gray-600 hover:border-black hover:text-black'}
             `}
             style={{ fontFamily: fonts.code }}
@@ -82,7 +82,7 @@ export default function Highlights() {
             )}
           </AnimatePresence>
 
-          <div className="flex gap-2 mt-6">
+          <div className="flex gap-6 mt-6">
             {release.platforms.map((platform, index) => (
               <button
                 key={index}

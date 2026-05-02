@@ -139,12 +139,28 @@ export default function ReleaseManager({ isDark, onUnsavedChange }) {
             </div>
             
             <div>
-              <label className={`block text-sm ${mutedColor} mb-1`}>Cover Art Path</label>
+              <label className={`block text-sm ${mutedColor} mb-1`}>Cover Art</label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => {
+                  const file = e.target.files[0];
+                  if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (ev) => {
+                      updatePendingRelease({ coverArt: ev.target.result });
+                    };
+                    reader.readAsDataURL(file);
+                  }
+                }}
+                className={`w-full p-2 rounded border ${borderColor} ${inputBg} text-sm mb-2`}
+              />
               <input
                 type="text"
-                value={pendingRelease.coverArt}
+                value={pendingRelease.coverArt?.startsWith('data:') ? '' : pendingRelease.coverArt || ''}
                 onChange={(e) => updatePendingRelease({ coverArt: e.target.value })}
                 className={`w-full p-2 rounded border ${borderColor} ${inputBg}`}
+                placeholder="Or enter path manually: /images/cover.jpg"
               />
             </div>
 

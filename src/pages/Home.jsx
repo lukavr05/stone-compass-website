@@ -49,10 +49,10 @@ function Home() {
               width: isExpanded ? '600px' : '240px',
               backgroundColor: isExpanded ? (isDark ? '#ffffff' : '#1976d2') : 'transparent',
             }}
-            transition={{ duration: 0.4, ease: 'easeInOut' }}
+            transition={{ duration: 0.15, ease: 'easeInOut' }}
             className={`
               ${isExpanded ? (isDark ? 'text-black' : 'text-white') : (isDark ? 'text-white' : 'text-black')}
-              border-2 ${isDark ? 'border-white' : 'border-black'} rounded-md h-[60px] text-[1.8rem] font-bold lowercase cursor-pointer relative overflow-hidden flex items-center pl-8 transition-all duration-300
+              border-2 ${isDark ? 'border-white' : 'border-black'} rounded-md h-[60px] text-[1.8rem] font-bold lowercase cursor-pointer relative overflow-hidden flex items-center justify-center transition-all duration-300
               ${isExpanded ? 'shadow-[0_0_20px_rgba(255,255,255,0.5)]' : ''}
             `}
             style={{ fontFamily: fonts.code }}
@@ -76,7 +76,7 @@ function Home() {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.2, delay: 0.2 }}
-                  className="flex items-center gap-4 relative z-10"
+                  className="flex items-center gap-8 relative z-10"
                 >
                   {platforms.map((platform, index) => (
                     <motion.div
@@ -114,7 +114,7 @@ function Home() {
         alt="Stone Compass"
         className="absolute left-8 md:left-16 z-10 w-[600px] md:w-[700px] lg:w-[960px] h-auto"
         style={{
-          top: isDark ? '53vh' : '53vh',
+          top: isDark ? '40vh' : '40vh',
         }}
       />
       <Highlights />

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 
 const STORAGE_KEY = 'stone-compass-gallery';
+const MIN_EXPECTED_IMAGES = 50;
 
 const defaultImages = [
   { id: '1', src: '/images/luka1.jpg', alt: 'Stone Compass Live Performance' },
@@ -66,7 +67,10 @@ export function useGallery() {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored) {
       try {
-        return JSON.parse(stored);
+        const parsed = JSON.parse(stored);
+        if (parsed.length >= MIN_EXPECTED_IMAGES) {
+          return parsed;
+        }
       } catch {
         return defaultImages;
       }

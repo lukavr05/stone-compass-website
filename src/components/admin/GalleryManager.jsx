@@ -17,7 +17,9 @@ export default function GalleryManager({ isDark, onUnsavedChange }) {
   const borderColor = isDark ? 'border-gray-700' : 'border-gray-200';
   const inputBg = isDark ? 'bg-gray-900' : 'bg-gray-50';
 
-  const hasUnsavedChanges = pendingImages.length !== images.length || pendingDeletions.length > 0;
+  const addedCount = pendingImages.filter((img) => img.id.toString().startsWith('pending-')).length;
+  const removedCount = pendingDeletions.length;
+  const hasUnsavedChanges = addedCount > 0 || removedCount > 0;
 
   const handleAddPending = (e) => {
     e.preventDefault();
@@ -30,10 +32,11 @@ export default function GalleryManager({ isDark, onUnsavedChange }) {
   };
 
   const handleDeletePending = (id) => {
-    if (id.toString().startsWith('pending-')) {
-      setPendingImages(pendingImages.filter((img) => img.id !== id));
+    const idStr = id.toString();
+    if (idStr.startsWith('pending-')) {
+      setPendingImages(pendingImages.filter((img) => img.id.toString() !== idStr));
     } else {
-      setPendingDeletions([...pendingDeletions, id]);
+      setPendingDeletions([...pendingDeletions, idStr]);
     }
   };
 
@@ -45,6 +48,7 @@ export default function GalleryManager({ isDark, onUnsavedChange }) {
     toAdd.forEach((img) => addImage({ src: img.src, alt: img.alt }));
     
     setPendingDeletions([]);
+    setPendingImages(prev => prev.filter(img => !toDelete.includes(img.id)));
   };
 
   const handleCancel = () => {
@@ -52,10 +56,7 @@ export default function GalleryManager({ isDark, onUnsavedChange }) {
     setPendingDeletions([]);
   };
 
-  const visibleImages = pendingImages.filter((img) => !pendingDeletions.includes(img.id));
-
-  const addedCount = pendingImages.filter((img) => img.id.toString().startsWith('pending-')).length;
-  const removedCount = pendingDeletions.length;
+  const visibleImages = pendingImages.filter((img) => !pendingDeletions.includes(img.id.toString()));
 
   useEffect(() => {
     if (hasUnsavedChanges) {
@@ -109,15 +110,23 @@ Add Image
         <form onSubmit={handleAddPending} className={`mb-6 p-4 rounded-lg border ${borderColor}`}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className={`block text-sm ${mutedColor} mb-1`}>Image Path</label>
+              <label className={`block text-sm ${mutedColor} mb-1`}>Image File</label>
               <input
-                type="text"
-                value={newImage.src}
-                onChange={(e) => setNewImage({ ...newImage, src: e.target.value })}
-                className={`w-full p-2 rounded border ${borderColor} ${inputBg}`}
-                placeholder="/images/your-image.jpg"
-                required
+                type="file"
+                accept="image/*"
+                onChange={(e) => {
+                  const file = e.target.files[0];
+                  if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (ev) => {
+                      setNewImage({ ...newImage, src: ev.target.result });
+                    };
+                    reader.readAsDataURL(file);
+                  }
+                }}
+                className={`w-full p-2 rounded border ${borderColor} ${inputBg} text-sm`}
               />
+              <p className={`text-xs ${mutedColor} mt-1`}>Or enter path manually below</p>
             </div>
             <div>
               <label className={`block text-sm ${mutedColor} mb-1`}>Alt Text</label>
@@ -130,6 +139,16 @@ Add Image
                 required
               />
             </div>
+          </div>
+          <div className="mt-4">
+            <label className={`block text-sm ${mutedColor} mb-1`}>Or Image Path (manual)</label>
+            <input
+              type="text"
+              value={newImage.src.startsWith('data:') ? '' : newImage.src}
+              onChange={(e) => setNewImage({ ...newImage, src: e.target.value })}
+              className={`w-full p-2 rounded border ${borderColor} ${inputBg}`}
+              placeholder="/images/your-image.jpg"
+            />
           </div>
           <div className="flex gap-2 mt-4">
             <button
