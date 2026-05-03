@@ -1,42 +1,48 @@
-import { useState } from 'react';
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
-import { useTheme } from '../hooks/useTheme';
-import { fonts } from '../theme/index';
-import Highlights from './Highlights';
-import Events from './Events.jsx';
-import Media from './Media.jsx';
-import { platforms, BrandIcon } from '../constants/platforms.jsx';
+import { useState } from "react";
+import {
+  motion,
+  AnimatePresence,
+  useScroll,
+  useTransform,
+} from "framer-motion";
+import { useTheme } from "../hooks/useTheme";
+import { fonts } from "../theme/index";
+import Highlights from "./Highlights";
+import Events from "./Events.jsx";
+import Media from "./Media.jsx";
+import { platforms, BrandIcon } from "../constants/platforms.jsx";
 
 function Home() {
   const { themeName } = useTheme();
   const [isExpanded, setIsExpanded] = useState(false);
-  const isDark = themeName === 'dark';
+  const isDark = themeName === "dark";
 
-  const expandedWidth = typeof window !== 'undefined'
-    ? Math.min(600, window.innerWidth * 0.9)
-    : 600;
+  const expandedWidth =
+    typeof window !== "undefined"
+      ? Math.min(600, window.innerWidth * 0.9)
+      : 600;
 
   const { scrollY } = useScroll();
   const yParallax = useTransform(scrollY, [0, 600], [0, 120]);
 
   const handlePlatformClick = (url) => {
-    window.open(url, '_blank', 'noopener,noreferrer');
+    window.open(url, "_blank", "noopener,noreferrer");
   };
 
-  const bgColor = isDark ? 'bg-black' : 'bg-white';
+  const bgColor = isDark ? "bg-black" : "bg-white";
 
   return (
     <div
       className={`min-h-screen flex flex-col ${bgColor} overflow-auto relative scroll-snap-y scroll-smooth pb-16 md:pb-0`}
       style={{ fontFamily: fonts.courier }}
     >
-      <div
-        id="home"
-        className="h-[74vh] relative overflow-hidden"
-      >
+      <div id="home" className="h-[74vh] relative overflow-hidden">
         <motion.div
-          className="absolute inset-0 -top-[20%] bg-cover bg-top"
-          style={{ y: yParallax, backgroundImage: 'url(/images/rehersal2.JPEG)' }}
+          className="absolute inset-0 -top-[95%] bg-cover bg-top"
+          style={{
+            y: yParallax,
+            backgroundImage: "url(/images/sc_press3.avif)",
+          }}
         />
       </div>
 
@@ -46,18 +52,22 @@ function Home() {
         <motion.div
           onMouseEnter={() => setIsExpanded(true)}
           onMouseLeave={() => setIsExpanded(false)}
-          onClick={() => setIsExpanded(prev => !prev)}
+          onClick={() => setIsExpanded((prev) => !prev)}
         >
           <motion.div
             animate={{
-              width: isExpanded ? `${expandedWidth}px` : '240px',
-              backgroundColor: isExpanded ? (isDark ? '#ffffff' : '#1976d2') : 'transparent',
+              width: isExpanded ? `${expandedWidth}px` : "240px",
+              backgroundColor: isExpanded
+                ? isDark
+                  ? "#ffffff"
+                  : "#1976d2"
+                : "transparent",
             }}
-            transition={{ duration: 0.15, ease: 'easeInOut' }}
+            transition={{ duration: 0.15, ease: "easeInOut" }}
             className={`
-              ${isExpanded ? (isDark ? 'text-black' : 'text-white') : (isDark ? 'text-white' : 'text-black')}
-              border-2 ${isDark ? 'border-white' : 'border-black'} rounded-md h-[60px] text-[1.8rem] font-bold lowercase cursor-pointer relative overflow-hidden flex items-center justify-center transition-all duration-300
-              ${isExpanded ? 'shadow-[0_0_20px_rgba(255,255,255,0.5)]' : ''}
+              ${isExpanded ? (isDark ? "text-black" : "text-white") : isDark ? "text-white" : "text-black"}
+              border-2 ${isDark ? "border-white" : "border-black"} rounded-md h-[60px] text-[1.8rem] font-bold lowercase cursor-pointer relative overflow-hidden flex items-center justify-center transition-all duration-300
+              ${isExpanded ? "shadow-[0_0_20px_rgba(255,255,255,0.5)]" : ""}
             `}
             style={{ fontFamily: fonts.code }}
           >
@@ -80,7 +90,7 @@ function Home() {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.2, delay: 0.2 }}
-                  className="flex items-center gap-8 relative z-10"
+                  className="flex items-center gap-8 relative z-8"
                 >
                   {platforms.map((platform, index) => (
                     <motion.div
@@ -88,10 +98,10 @@ function Home() {
                       initial={{ x: -20, opacity: 0 }}
                       animate={{ x: 0, opacity: 1 }}
                       transition={{
-                        type: 'spring',
+                        type: "spring",
                         stiffness: 300,
                         damping: 20,
-                        delay: 0.1 + (index * 0.05)
+                        delay: 0.1 + index * 0.05,
                       }}
                     >
                       <button
@@ -99,8 +109,10 @@ function Home() {
                           e.stopPropagation();
                           handlePlatformClick(platform.url);
                         }}
-                        className={`transition-all duration-250 hover:scale-110 ${isExpanded ? (isDark ? 'text-black' : 'text-white') : (isDark ? 'text-white' : 'text-black')}`}
-                        style={{ color: isExpanded ? undefined : platform.color }}
+                        className={`transition-all duration-250 hover:scale-110 ${isExpanded ? (isDark ? "text-black" : "text-white") : isDark ? "text-white" : "text-black"}`}
+                        style={{
+                          color: isExpanded ? undefined : platform.color,
+                        }}
                       >
                         <BrandIcon icon={platform.icon} />
                       </button>
@@ -118,7 +130,7 @@ function Home() {
         alt="Stone Compass"
         className="absolute left-4 md:left-16 z-10 w-[85vw] sm:w-[520px] md:w-[700px] lg:w-[960px] h-auto"
         style={{
-          top: isDark ? '40vh' : '40vh',
+          top: isDark ? "40vh" : "40vh",
         }}
       />
       <Highlights />

@@ -1,45 +1,51 @@
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
-import { useTheme } from '../hooks/useTheme';
-import { fonts } from '../theme/index';
-import { useEvents } from '../hooks/useEvents';
-import { Calendar, MapPin, Clock, ExternalLink } from 'lucide-react';
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
+import { useTheme } from "../hooks/useTheme";
+import { fonts } from "../theme/index";
+import { useEvents } from "../hooks/useEvents";
+import { Calendar, MapPin, Clock, ExternalLink } from "lucide-react";
 
 export default function Events() {
   const { themeName } = useTheme();
-  const isDark = themeName === 'dark';
+  const isDark = themeName === "dark";
   const { events } = useEvents();
   const containerRef = useRef(null);
-  
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start start", "end start"]
+    offset: ["start start", "end start"],
   });
 
   const yParallax = useTransform(scrollYProgress, [0, 1], [-100, 100]);
 
   const formatDate = (dateStr) => {
     const date = new Date(dateStr);
-    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    return date.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
   };
 
   const formatTime = (timeStr) => {
-    if (!timeStr || !timeStr.includes(':')) return '';
-    const [hours, minutes] = timeStr.split(':');
+    if (!timeStr || !timeStr.includes(":")) return "";
+    const [hours, minutes] = timeStr.split(":");
     const hour = parseInt(hours, 10);
-    if (isNaN(hour)) return '';
-    const ampm = hour >= 12 ? 'PM' : 'AM';
+    if (isNaN(hour)) return "";
+    const ampm = hour >= 12 ? "PM" : "AM";
     const displayHour = hour % 12 || 12;
     return `${displayHour}:${minutes} ${ampm}`;
   };
 
-  const bgColor = isDark ? 'bg-black' : 'bg-white';
-  const textColor = isDark ? 'text-white' : 'text-black';
-  const mutedColor = isDark ? 'text-gray-400' : 'text-gray-600';
-  const glassBg = isDark ? 'bg-white/5' : 'bg-black/5';
-  const glassBorder = isDark ? 'border-white/10' : 'border-black/10';
+  const bgColor = isDark ? "bg-black" : "bg-white";
+  const textColor = isDark ? "text-white" : "text-black";
+  const mutedColor = isDark ? "text-gray-400" : "text-gray-600";
+  const glassBg = isDark ? "bg-white/5" : "bg-black/5";
+  const glassBorder = isDark ? "border-white/10" : "border-black/10";
 
-  const upcomingEvents = events.filter(e => new Date(e.date + 'T00:00') >= new Date()).sort((a, b) => new Date(a.date + 'T00:00') - new Date(b.date + 'T00:00'));
+  const upcomingEvents = events
+    .filter((e) => new Date(e.date + "T00:00") >= new Date())
+    .sort((a, b) => new Date(a.date + "T00:00") - new Date(b.date + "T00:00"));
 
   return (
     <div
@@ -47,10 +53,13 @@ export default function Events() {
       ref={containerRef}
       className={`min-h-screen ${bgColor} ${textColor} scroll-snap-start relative overflow-hidden`}
     >
-      <div className="h-[50vh] relative overflow-hidden">
+      <div className="h-[70vh] relative overflow-hidden">
         <motion.div
-          className="absolute inset-0 -top-[20%] bg-cover bg-top"
-          style={{ y: yParallax, backgroundImage: 'url(/images/rehearsal1.JPEG)' }}
+          className="absolute inset-0 -top-[10%] bg-cover bg-top"
+          style={{
+            y: yParallax,
+            backgroundImage: "url(/images/rehersal2.JPEG)",
+          }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-black/80" />
       </div>
@@ -78,43 +87,103 @@ export default function Events() {
                   </h2>
                 )}
 
-                <div className={`grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 p-6 rounded-xl border ${glassBorder} ${glassBg} backdrop-blur-sm`}>
+                <div
+                  className={`grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 p-6 rounded-xl border ${glassBorder} ${glassBg} backdrop-blur-sm`}
+                >
                   <div className="flex items-start gap-3">
-                    <Calendar className={mutedColor} size={20} style={{ marginTop: '2px' }} />
+                    <Calendar
+                      className={mutedColor}
+                      size={20}
+                      style={{ marginTop: "2px" }}
+                    />
                     <div>
-                      <span className={`block text-xs sm:text-sm ${mutedColor} mb-1`} style={{ fontFamily: fonts.code }}>Date</span>
-                      <span className="text-base sm:text-lg font-bold" style={{ fontFamily: fonts.code }}>{formatDate(event.date)}</span>
+                      <span
+                        className={`block text-xs sm:text-sm ${mutedColor} mb-1`}
+                        style={{ fontFamily: fonts.code }}
+                      >
+                        Date
+                      </span>
+                      <span
+                        className="text-base sm:text-lg font-bold"
+                        style={{ fontFamily: fonts.code }}
+                      >
+                        {formatDate(event.date)}
+                      </span>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-3">
-                    <Clock className={mutedColor} size={20} style={{ marginTop: '2px' }} />
+                    <Clock
+                      className={mutedColor}
+                      size={20}
+                      style={{ marginTop: "2px" }}
+                    />
                     <div>
-                      <span className={`block text-xs sm:text-sm ${mutedColor} mb-1`} style={{ fontFamily: fonts.code }}>Time</span>
-                      <span className="text-base sm:text-lg font-bold" style={{ fontFamily: fonts.code }}>{formatTime(event.time)}</span>
+                      <span
+                        className={`block text-xs sm:text-sm ${mutedColor} mb-1`}
+                        style={{ fontFamily: fonts.code }}
+                      >
+                        Time
+                      </span>
+                      <span
+                        className="text-base sm:text-lg font-bold"
+                        style={{ fontFamily: fonts.code }}
+                      >
+                        {formatTime(event.time)}
+                      </span>
                       {event.doors && (
-                        <span className={`block text-xs sm:text-sm ${mutedColor}`} style={{ fontFamily: fonts.code }}>Doors: {formatTime(event.doors)}</span>
+                        <span
+                          className={`block text-xs sm:text-sm ${mutedColor}`}
+                          style={{ fontFamily: fonts.code }}
+                        >
+                          Doors: {formatTime(event.doors)}
+                        </span>
                       )}
                     </div>
                   </div>
 
                   <div className="flex items-start gap-3">
-                    <MapPin className={mutedColor} size={20} style={{ marginTop: '2px' }} />
+                    <MapPin
+                      className={mutedColor}
+                      size={20}
+                      style={{ marginTop: "2px" }}
+                    />
                     <div>
-                      <span className={`block text-xs sm:text-sm ${mutedColor} mb-1`} style={{ fontFamily: fonts.code }}>Location</span>
-                      <span className="text-base sm:text-lg font-bold" style={{ fontFamily: fonts.code }}>{event.venue}</span>
-                      <span className={`block text-xs sm:text-sm ${mutedColor}`} style={{ fontFamily: fonts.code }}>{event.location}</span>
+                      <span
+                        className={`block text-xs sm:text-sm ${mutedColor} mb-1`}
+                        style={{ fontFamily: fonts.code }}
+                      >
+                        Location
+                      </span>
+                      <span
+                        className="text-base sm:text-lg font-bold"
+                        style={{ fontFamily: fonts.code }}
+                      >
+                        {event.venue}
+                      </span>
+                      <span
+                        className={`block text-xs sm:text-sm ${mutedColor}`}
+                        style={{ fontFamily: fonts.code }}
+                      >
+                        {event.location}
+                      </span>
                     </div>
                   </div>
                 </div>
 
                 {event.ticketUrl && (
                   <button
-                    onClick={() => window.open(event.ticketUrl, '_blank', 'noopener,noreferrer')}
+                    onClick={() =>
+                      window.open(
+                        event.ticketUrl,
+                        "_blank",
+                        "noopener,noreferrer",
+                      )
+                    }
                     className={`
                       w-full py-3 sm:py-4 px-6 sm:px-8 rounded-lg text-base sm:text-lg font-bold lowercase transition-all duration-300 flex items-center justify-center gap-2
-                      border-2 ${isDark ? 'border-white hover:bg-white hover:text-black' : 'border-black hover:bg-black hover:text-white'}
-                      ${isDark ? 'text-white' : 'text-black'}
+                      border-2 ${isDark ? "border-white hover:bg-white hover:text-black" : "border-black hover:bg-black hover:text-white"}
+                      ${isDark ? "text-white" : "text-black"}
                     `}
                     style={{ fontFamily: fonts.code }}
                   >
@@ -124,14 +193,21 @@ export default function Events() {
                 )}
 
                 {index === 0 && (
-                  <p className={`mt-6 text-sm ${mutedColor}`} style={{ fontFamily: fonts.code }}>
-                    More shows to be announced soon. Check our social media for more info!
+                  <p
+                    className={`mt-6 text-sm ${mutedColor}`}
+                    style={{ fontFamily: fonts.code }}
+                  >
+                    More shows to be announced soon. Check our social media for
+                    more info!
                   </p>
                 )}
               </div>
             ))
           ) : (
-            <p className={`text-xl ${mutedColor}`} style={{ fontFamily: fonts.code }}>
+            <p
+              className={`text-xl ${mutedColor}`}
+              style={{ fontFamily: fonts.code }}
+            >
               No upcoming shows scheduled. Check back soon!
             </p>
           )}

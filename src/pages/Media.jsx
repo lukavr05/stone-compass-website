@@ -1,25 +1,41 @@
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
-import { useState, useRef } from 'react';
-import { useTheme } from '../hooks/useTheme';
-import { fonts } from '../theme/index';
-import { BrandIcon } from '../constants/platforms.jsx';
-import { useGallery } from '../hooks/useGallery';
-import { X } from 'lucide-react';
 import {
-  siYoutubemusic,
-  siInstagram,
-  siTiktok,
-} from 'simple-icons';
+  motion,
+  AnimatePresence,
+  useScroll,
+  useTransform,
+} from "framer-motion";
+import { useState, useRef } from "react";
+import { useTheme } from "../hooks/useTheme";
+import { fonts } from "../theme/index";
+import { BrandIcon } from "../constants/platforms.jsx";
+import { useGallery } from "../hooks/useGallery";
+import { X } from "lucide-react";
+import { siYoutubemusic, siInstagram, siTiktok } from "simple-icons";
 
 const mediaPlatforms = [
-  { name: 'YouTube', icon: siYoutubemusic, color: '#FF0000', url: 'https://www.youtube.com/channel/UCDxrFlpeL4LB40u27yVfXjg' },
-  { name: 'TikTok', icon: siTiktok, color: '#EE1D52', url: 'https://tiktok.com/@stonecompassmusic' },
-  { name: 'Instagram', icon: siInstagram, color: '#DD2A7B', url: 'https://www.instagram.com/stonecompassmusic/' }
+  {
+    name: "YouTube",
+    icon: siYoutubemusic,
+    color: "#FF0000",
+    url: "https://www.youtube.com/channel/UCDxrFlpeL4LB40u27yVfXjg",
+  },
+  {
+    name: "TikTok",
+    icon: siTiktok,
+    color: "#EE1D52",
+    url: "https://tiktok.com/@stonecompassmusic",
+  },
+  {
+    name: "Instagram",
+    icon: siInstagram,
+    color: "#DD2A7B",
+    url: "https://www.instagram.com/stonecompassmusic/",
+  },
 ];
 
 export default function Media() {
   const { themeName } = useTheme();
-  const isDark = themeName === 'dark';
+  const isDark = themeName === "dark";
   const { images } = useGallery();
   const [selectedImage, setSelectedImage] = useState(null);
   const containerRef = useRef(null);
@@ -27,10 +43,10 @@ export default function Media() {
   const { scrollY } = useScroll();
   const yParallax = useTransform(scrollY, [0, 600], [0, 120]);
 
-  const bgColor = isDark ? 'bg-black' : 'bg-white';
-  const textColor = isDark ? 'text-white' : 'text-black';
-  const mutedColor = isDark ? 'text-gray-400' : 'text-gray-600';
-  const glassBg = isDark ? 'bg-white/5' : 'bg-black/5';
+  const bgColor = isDark ? "bg-black" : "bg-white";
+  const textColor = isDark ? "text-white" : "text-black";
+  const mutedColor = isDark ? "text-gray-400" : "text-gray-600";
+  const glassBg = isDark ? "bg-white/5" : "bg-black/5";
 
   return (
     <div
@@ -40,9 +56,11 @@ export default function Media() {
     >
       <div className="h-[50vh] relative overflow-hidden">
         <motion.div
-          style={{ y: yParallax }}
-          className="absolute inset-0 -top-[20%] bg-cover bg-top"
-          style={{ backgroundImage: 'url(/images/scpromo2.jpg)' }}
+          style={{
+            y: yParallax,
+            backgroundImage: "url(/images/luka_kai_amar1.avif)",
+          }}
+          className="absolute inset-0 -top-[50%] bg-cover bg-top"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-black/80" />
       </div>
@@ -78,7 +96,7 @@ export default function Media() {
               transition={{
                 duration: 0.5,
                 delay: index * 0.05,
-                ease: 'easeOut'
+                ease: "easeOut",
               }}
               onClick={() => setSelectedImage(item)}
               className={`${glassBg} mb-6 overflow-hidden cursor-pointer break-inside-avoid`}
@@ -109,7 +127,9 @@ export default function Media() {
             {mediaPlatforms.map(({ icon, color, url }) => (
               <button
                 key={url}
-                onClick={() => window.open(url, '_blank', 'noopener,noreferrer')}
+                onClick={() =>
+                  window.open(url, "_blank", "noopener,noreferrer")
+                }
                 className={`transition-all duration-250 hover:scale-120 ${textColor}`}
                 style={{ color }}
               >
@@ -123,7 +143,9 @@ export default function Media() {
               className={`text-sm ${mutedColor} max-w-[600px] mx-auto leading-relaxed`}
               style={{ fontFamily: fonts.code }}
             >
-              Thank you for scrolling this far! Any and all support, no matter how insignificant it may seem, is beyond appreciated. Keep loving music.
+              Thank you for scrolling this far! Any and all support, no matter
+              how insignificant it may seem, is beyond appreciated. Keep loving
+              music.
             </p>
           </div>
         </motion.div>
