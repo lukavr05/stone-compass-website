@@ -1,27 +1,21 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
-const STORAGE_KEY = 'stone-compass-events';
-
-const defaultEvents = [];
+const defaultEvents = [
+  {
+    id: "1",
+    title: "Far East Festival 2025",
+    date: "2025-07-11",
+    time: "20:00",
+    doors: "19:00",
+    venue: "The Garage",
+    location: "London, UK",
+    ticketUrl: "https://www.fareastfestival.co.uk",
+    featured: true,
+  },
+];
 
 export function useEvents() {
-  const [events, setEvents] = useState(() => {
-    if (typeof window === 'undefined') return defaultEvents;
-    
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) {
-      try {
-        return JSON.parse(stored);
-      } catch {
-        return defaultEvents;
-      }
-    }
-    return defaultEvents;
-  });
-
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(events));
-  }, [events]);
+  const [events, setEvents] = useState(defaultEvents);
 
   const addEvent = (event) => {
     const newEvent = {
