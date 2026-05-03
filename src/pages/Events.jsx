@@ -24,8 +24,10 @@ export default function Events() {
   };
 
   const formatTime = (timeStr) => {
+    if (!timeStr || !timeStr.includes(':')) return '';
     const [hours, minutes] = timeStr.split(':');
-    const hour = parseInt(hours);
+    const hour = parseInt(hours, 10);
+    if (isNaN(hour)) return '';
     const ampm = hour >= 12 ? 'PM' : 'AM';
     const displayHour = hour % 12 || 12;
     return `${displayHour}:${minutes} ${ampm}`;

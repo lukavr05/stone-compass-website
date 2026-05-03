@@ -18,10 +18,46 @@ const initialEventForm = {
   featured: false,
 };
 
+const RATE_LIMIT_KEY = 'stone-compass-login-attempts';
+const MAX_ATTEMPTS = 5;
+const LOCKOUT_MS = 5 * 60 * 1000;
+
+function getLoginAttempts() {
+  try {
+    const stored = sessionStorage.getItem(RATE_LIMIT_KEY);
+    return stored ? JSON.parse(stored) : { count: 0, lockedUntil: 0 };
+  } catch {
+    return { count: 0, lockedUntil: 0 };
+  }
+}
+
+function recordFailedAttempt() {
+  const attempt = getLoginAttempts();
+  attempt.count += 1;
+  sessionStorage.setItem(RATE_LIMIT_KEY, JSON.stringify(attempt));
+}
+
+function clearLoginAttempts() {
+  sessionStorage.removeItem(RATE_LIMIT_KEY);
+}
+
+function isLockedOut() {
+  const attempt = getLoginAttempts();
+  return attempt.count >= MAX_ATTEMPTS && Date.now() < attempt.lockedUntil;
+}
+
+function getLockoutRemaining() {
+  const attempt = getLoginAttempts();
+  if (attempt.count < MAX_ATTEMPTS) return 0;
+  return Math.ceil((attempt.lockedUntil - Date.now()) / 1000);
+}
+
 function LoginScreen({ onLogin, isDark }) {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
+  const [lockoutRemaining, setLockoutRemaining] = useState(0);
+  const [isLocked, setIsLocked] = useState(false);
 
   const bgColor = isDark ? 'bg-black' : 'bg-white';
   const textColor = isDark ? 'text-white' : 'text-black';
@@ -29,12 +65,43 @@ function LoginScreen({ onLogin, isDark }) {
   const borderColor = isDark ? 'border-gray-700' : 'border-gray-200';
   const inputBg = isDark ? 'bg-gray-900' : 'bg-gray-50';
 
+  useState(() => {
+    if (isLockedOut()) {
+      setIsLocked(true);
+      const remaining = getLockoutRemaining();
+      setLockoutRemaining(remaining);
+      setTimeout(() => {
+        clearLoginAttempts();
+        setIsLocked(false);
+        setLockoutRemaining(0);
+      }, remaining * 1000);
+    }
+  }, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!onLogin(password)) {
+    if (isLocked) return;
+    const success = onLogin(password);
+    if (!success) {
+      recordFailedAttempt();
+      const attempt = getLoginAttempts();
       setError('Invalid password');
+      if (attempt.count >= MAX_ATTEMPTS) {
+        attempt.lockedUntil = Date.now() + LOCKOUT_MS;
+        sessionStorage.setItem(RATE_LIMIT_KEY, JSON.stringify(attempt));
+        setIsLocked(true);
+        setLockoutRemaining(Math.ceil(LOCKOUT_MS / 1000));
+        setTimeout(() => {
+          clearLoginAttempts();
+          setIsLocked(false);
+          setLockoutRemaining(0);
+          setError('');
+        }, LOCKOUT_MS);
+      }
     }
   };
+
+  const remainingAttempts = MAX_ATTEMPTS - getLoginAttempts().count;
 
   return (
     <div className={`min-h-screen ${bgColor} ${textColor} flex items-center justify-center p-8`}>
@@ -60,12 +127,14 @@ function LoginScreen({ onLogin, isDark }) {
                 onChange={(e) => setPassword(e.target.value)}
                 className={`w-full p-3 rounded-lg border ${borderColor} ${inputBg} pr-12`}
                 placeholder="Enter admin password"
+                disabled={isLocked}
                 required
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 className={`absolute right-3 top-1/2 -translate-y-1/2 ${mutedColor}`}
+                disabled={isLocked}
               >
                 {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
               </button>
@@ -75,12 +144,23 @@ function LoginScreen({ onLogin, isDark }) {
           {error && (
             <p className="text-red-500 text-sm">{error}</p>
           )}
+
+          {isLocked ? (
+            <p className="text-red-500 text-sm">
+              Too many failed attempts. Try again in {lockoutRemaining} seconds.
+            </p>
+          ) : remainingAttempts <= 2 && (
+            <p className="text-yellow-500 text-sm">
+              {remainingAttempts} attempt{remainingAttempts !== 1 ? 's' : ''} remaining
+            </p>
+          )}
           
           <button
             type="submit"
-            className={`w-full py-3 rounded-lg font-bold ${isDark ? 'bg-white text-black' : 'bg-black text-white'}`}
+            disabled={isLocked}
+            className={`w-full py-3 rounded-lg font-bold ${isDark ? 'bg-white text-black' : 'bg-black text-white'} ${isLocked ? 'opacity-50 cursor-not-allowed' : ''}`}
           >
-            Login
+            {isLocked ? 'Locked' : 'Login'}
           </button>
         </form>
       </motion.div>
@@ -188,9 +268,10 @@ export default function Admin() {
   };
 
   const formatTime = (timeStr) => {
-    if (!timeStr) return '';
+    if (!timeStr || !timeStr.includes(':')) return '';
     const [hours, minutes] = timeStr.split(':');
-    const hour = parseInt(hours);
+    const hour = parseInt(hours, 10);
+    if (isNaN(hour)) return '';
     const ampm = hour >= 12 ? 'PM' : 'AM';
     const displayHour = hour % 12 || 12;
     return `${displayHour}:${minutes} ${ampm}`;

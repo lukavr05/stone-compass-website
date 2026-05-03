@@ -56,7 +56,7 @@ export function useEvents() {
     setEvents((prev) => prev.filter((event) => event.id !== id));
   };
 
-  const featuredEvent = events.find((e) => e.featured) || events[0];
+  const featuredEvent = events.length > 0 ? events.find((e) => e.featured) || events[0] : null;
 
   return {
     events,
