@@ -3,18 +3,6 @@ import { useState, useEffect } from 'react';
 const STORAGE_KEY = 'stone-compass-gallery';
 
 const defaultImages = [
-  { id: '1', src: '/images/luka1.jpg', alt: 'Stone Compass Live Performance' },
-  { id: '2', src: '/images/scpromo2.jpg', alt: 'Night Single Cover' },
-  { id: '3', src: '/images/scpromo4.jpg', alt: 'Reflection Single Cover' },
-  { id: '4', src: '/images/IMG_1646.jpg', alt: 'Concert Photo' },
-  { id: '5', src: '/images/IMG_6009.JPG', alt: 'Behind the Scenes' },
-  { id: '6', src: '/images/IMG_6151.JPG', alt: 'Band Photo' },
-  { id: '7', src: '/images/IMG_6107.JPG', alt: 'Festival Performance' },
-  { id: '8', src: '/images/scpromo3.jpg', alt: 'Recording Session' },
-  { id: '9', src: '/images/IMG_5636.JPEG', alt: 'Venue Photo' },
-  { id: '10', src: '/images/IMG_5449.JPG', alt: 'Equipment Setup' },
-  { id: '11', src: '/images/IMG_6117.JPG', alt: 'Equipment Setup' },
-  { id: '12', src: '/images/rosie.jpg', alt: 'Band Photo' },
   { id: '101', src: '/images/IMG_1355.avif', alt: 'Band Photo' },
   { id: '102', src: '/images/IMG_1356.avif', alt: 'Band Photo' },
   { id: '103', src: '/images/IMG_1357.avif', alt: 'Concert Photo' },
