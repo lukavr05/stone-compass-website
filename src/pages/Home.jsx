@@ -31,9 +31,8 @@ function Home() {
         className="h-[74vh] relative overflow-hidden"
       >
         <motion.div
-          style={{ y: yParallax }}
           className="absolute inset-0 -top-[20%] bg-cover bg-top"
-          style={{ backgroundImage: 'url(/images/rehersal2.JPEG)' }}
+          style={{ y: yParallax, backgroundImage: 'url(/images/rehersal2.JPEG)' }}
         />
       </div>
 
@@ -43,6 +42,7 @@ function Home() {
         <motion.div
           onMouseEnter={() => setIsExpanded(true)}
           onMouseLeave={() => setIsExpanded(false)}
+          onClick={() => setIsExpanded(prev => !prev)}
         >
           <motion.div
             animate={{

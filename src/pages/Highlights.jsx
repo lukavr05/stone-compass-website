@@ -90,10 +90,10 @@ export default function Highlights() {
                 className={`transition-all duration-250 hover:scale-120 ${textColor}`}
                 style={{ color: platform.color }}
               >
-                <BrandIcon 
-                  icon={getIconForPlatform(platform.name)} 
-                  size={26} 
-                />
+                {getIconForPlatform(platform.name)
+                  ? <BrandIcon icon={getIconForPlatform(platform.name)} size={26} />
+                  : <span style={{ fontSize: '12px' }}>{platform.name}</span>
+                }
               </button>
             ))}
           </div>

@@ -39,7 +39,7 @@ export default function Events() {
   const glassBg = isDark ? 'bg-white/5' : 'bg-black/5';
   const glassBorder = isDark ? 'border-white/10' : 'border-black/10';
 
-  const upcomingEvents = events.filter(e => new Date(e.date) >= new Date()).sort((a, b) => new Date(a.date) - new Date(b.date));
+  const upcomingEvents = events.filter(e => new Date(e.date + 'T00:00') >= new Date()).sort((a, b) => new Date(a.date + 'T00:00') - new Date(b.date + 'T00:00'));
 
   return (
     <div
@@ -49,9 +49,8 @@ export default function Events() {
     >
       <div className="h-[50vh] relative overflow-hidden">
         <motion.div
-          style={{ y: yParallax }}
           className="absolute inset-0 -top-[20%] bg-cover bg-top"
-          style={{ backgroundImage: 'url(/images/rehearsal1.JPEG)' }}
+          style={{ y: yParallax, backgroundImage: 'url(/images/rehearsal1.JPEG)' }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-black/80" />
       </div>

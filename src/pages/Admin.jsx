@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useTheme } from '../hooks/useTheme';
 import { fonts } from '../theme/index';
@@ -65,7 +65,7 @@ function LoginScreen({ onLogin, isDark }) {
   const borderColor = isDark ? 'border-gray-700' : 'border-gray-200';
   const inputBg = isDark ? 'bg-gray-900' : 'bg-gray-50';
 
-  useState(() => {
+  useEffect(() => {
     if (isLockedOut()) {
       setIsLocked(true);
       const remaining = getLockoutRemaining();
@@ -226,10 +226,8 @@ export default function Admin() {
     }
   };
 
-  const handleLogoutSave = () => {
-    setUnsavedChanges({});
+  const handleLogoutGoBack = () => {
     setShowLogoutDialog(false);
-    setIsAuthenticated(false);
   };
 
   const handleLogoutDiscard = () => {
@@ -555,7 +553,7 @@ export default function Admin() {
                 Unsaved Changes
               </h3>
               <p className={`mb-6 ${mutedColor}`}>
-                You have unsaved changes that will be lost:
+                Go back to save your changes, or discard them.
               </p>
               <ul className={`mb-6 space-y-1 ${mutedColor}`}>
                 {unsavedChanges.gallery && (
@@ -570,10 +568,10 @@ export default function Admin() {
               </ul>
               <div className="flex gap-2">
                 <button
-                  onClick={handleLogoutSave}
+                  onClick={handleLogoutGoBack}
                   className={`flex-1 px-4 py-2 rounded-lg ${isDark ? 'bg-white text-black' : 'bg-black text-white'}`}
                 >
-                  Save & Logout
+                  Go Back
                 </button>
                 <button
                   onClick={handleLogoutDiscard}
