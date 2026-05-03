@@ -12,6 +12,10 @@ function Home() {
   const [isExpanded, setIsExpanded] = useState(false);
   const isDark = themeName === 'dark';
 
+  const expandedWidth = typeof window !== 'undefined'
+    ? Math.min(600, window.innerWidth * 0.9)
+    : 600;
+
   const { scrollY } = useScroll();
   const yParallax = useTransform(scrollY, [0, 600], [0, 120]);
 
@@ -23,7 +27,7 @@ function Home() {
 
   return (
     <div
-      className={`min-h-screen flex flex-col ${bgColor} overflow-auto relative scroll-snap-y scroll-smooth`}
+      className={`min-h-screen flex flex-col ${bgColor} overflow-auto relative scroll-snap-y scroll-smooth pb-16 md:pb-0`}
       style={{ fontFamily: fonts.courier }}
     >
       <div
@@ -37,7 +41,7 @@ function Home() {
       </div>
 
       <div
-        className={`h-[26vh] ${bgColor} flex items-start pl-8 pt-12 md:pl-16`}
+        className={`h-[26vh] ${bgColor} flex items-start pl-4 sm:pl-8 md:pl-16 pt-12 overflow-hidden`}
       >
         <motion.div
           onMouseEnter={() => setIsExpanded(true)}
@@ -46,7 +50,7 @@ function Home() {
         >
           <motion.div
             animate={{
-              width: isExpanded ? '600px' : '240px',
+              width: isExpanded ? `${expandedWidth}px` : '240px',
               backgroundColor: isExpanded ? (isDark ? '#ffffff' : '#1976d2') : 'transparent',
             }}
             transition={{ duration: 0.15, ease: 'easeInOut' }}
@@ -112,7 +116,7 @@ function Home() {
       <img
         src="/STONE COMPASS.png"
         alt="Stone Compass"
-        className="absolute left-8 md:left-16 z-10 w-[600px] md:w-[700px] lg:w-[960px] h-auto"
+        className="absolute left-4 md:left-16 z-10 w-[85vw] sm:w-[520px] md:w-[700px] lg:w-[960px] h-auto"
         style={{
           top: isDark ? '40vh' : '40vh',
         }}

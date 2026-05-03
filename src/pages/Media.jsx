@@ -55,7 +55,7 @@ export default function Media() {
           transition={{ duration: 0.6 }}
         >
           <span
-            className={`block text-sm tracking-[0.2em] ${mutedColor} mb-2`}
+            className={`block text-sm tracking-[0.1em] sm:tracking-[0.2em] ${mutedColor} mb-2`}
             style={{ fontFamily: fonts.code }}
           >
             Media_Gallery
@@ -67,7 +67,7 @@ export default function Media() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="columns-2 sm:columns-2 md:columns-2 lg:columns-3 gap-6 mb-8"
+          className="columns-1 sm:columns-2 lg:columns-3 gap-4 sm:gap-6 mb-8"
         >
           {images.map((item, index) => (
             <motion.div
@@ -99,7 +99,7 @@ export default function Media() {
           transition={{ duration: 0.6, delay: 0.3 }}
         >
           <span
-            className={`block text-sm tracking-[0.2em] ${mutedColor} mb-3`}
+            className={`block text-sm tracking-[0.1em] sm:tracking-[0.2em] ${mutedColor} mb-3`}
             style={{ fontFamily: fonts.code }}
           >
             Follow_Us

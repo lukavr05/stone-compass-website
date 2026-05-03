@@ -38,7 +38,7 @@ export default function Highlights() {
 
         <div className="flex flex-col justify-center h-full">
           <span
-            className={`block text-sm tracking-[0.2em] ${mutedColor}`}
+            className={`block text-sm tracking-[0.1em] sm:tracking-[0.2em] ${mutedColor}`}
             style={{ fontFamily: fonts.code }}
           >
             Latest_Release
@@ -69,7 +69,7 @@ export default function Highlights() {
                 className="overflow-hidden"
               >
                 <div
-                  className={`mt-4 p-4 rounded-lg border ${glassBorder} ${glassBg} backdrop-blur-sm max-w-[520px]`}
+                  className={`mt-4 p-4 rounded-lg border ${glassBorder} ${glassBg} backdrop-blur-sm max-w-[520px] w-full mx-2 sm:mx-0`}
                 >
                   <pre
                     className={`text-sm leading-relaxed ${mutedColor}`}
@@ -82,7 +82,7 @@ export default function Highlights() {
             )}
           </AnimatePresence>
 
-          <div className="flex gap-6 mt-6">
+          <div className="flex flex-wrap gap-4 sm:gap-6 mt-6">
             {release.platforms.map((platform, index) => (
               <button
                 key={index}

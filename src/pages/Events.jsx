@@ -63,7 +63,7 @@ export default function Events() {
           transition={{ duration: 0.6 }}
         >
           <span
-            className={`block text-sm tracking-[0.2em] ${mutedColor} mb-2`}
+            className={`block text-sm tracking-[0.1em] sm:tracking-[0.2em] ${mutedColor} mb-2`}
             style={{ fontFamily: fonts.code }}
           >
             Upcoming_Shows
@@ -82,18 +82,18 @@ export default function Events() {
                   <div className="flex items-start gap-3">
                     <Calendar className={mutedColor} size={20} style={{ marginTop: '2px' }} />
                     <div>
-                      <span className={`block text-xs ${mutedColor} mb-1`} style={{ fontFamily: fonts.code }}>Date</span>
-                      <span className="text-lg font-bold" style={{ fontFamily: fonts.code }}>{formatDate(event.date)}</span>
+                      <span className={`block text-xs sm:text-sm ${mutedColor} mb-1`} style={{ fontFamily: fonts.code }}>Date</span>
+                      <span className="text-base sm:text-lg font-bold" style={{ fontFamily: fonts.code }}>{formatDate(event.date)}</span>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-3">
                     <Clock className={mutedColor} size={20} style={{ marginTop: '2px' }} />
                     <div>
-                      <span className={`block text-xs ${mutedColor} mb-1`} style={{ fontFamily: fonts.code }}>Time</span>
-                      <span className="text-lg font-bold" style={{ fontFamily: fonts.code }}>{formatTime(event.time)}</span>
+                      <span className={`block text-xs sm:text-sm ${mutedColor} mb-1`} style={{ fontFamily: fonts.code }}>Time</span>
+                      <span className="text-base sm:text-lg font-bold" style={{ fontFamily: fonts.code }}>{formatTime(event.time)}</span>
                       {event.doors && (
-                        <span className={`block text-xs ${mutedColor}`} style={{ fontFamily: fonts.code }}>Doors: {formatTime(event.doors)}</span>
+                        <span className={`block text-xs sm:text-sm ${mutedColor}`} style={{ fontFamily: fonts.code }}>Doors: {formatTime(event.doors)}</span>
                       )}
                     </div>
                   </div>
@@ -101,9 +101,9 @@ export default function Events() {
                   <div className="flex items-start gap-3">
                     <MapPin className={mutedColor} size={20} style={{ marginTop: '2px' }} />
                     <div>
-                      <span className={`block text-xs ${mutedColor} mb-1`} style={{ fontFamily: fonts.code }}>Location</span>
-                      <span className="text-lg font-bold" style={{ fontFamily: fonts.code }}>{event.venue}</span>
-                      <span className={`block text-xs ${mutedColor}`} style={{ fontFamily: fonts.code }}>{event.location}</span>
+                      <span className={`block text-xs sm:text-sm ${mutedColor} mb-1`} style={{ fontFamily: fonts.code }}>Location</span>
+                      <span className="text-base sm:text-lg font-bold" style={{ fontFamily: fonts.code }}>{event.venue}</span>
+                      <span className={`block text-xs sm:text-sm ${mutedColor}`} style={{ fontFamily: fonts.code }}>{event.location}</span>
                     </div>
                   </div>
                 </div>
@@ -112,7 +112,7 @@ export default function Events() {
                   <button
                     onClick={() => window.open(event.ticketUrl, '_blank', 'noopener,noreferrer')}
                     className={`
-                      w-full py-4 px-8 rounded-lg text-lg font-bold lowercase transition-all duration-300 flex items-center justify-center gap-2
+                      w-full py-3 sm:py-4 px-6 sm:px-8 rounded-lg text-base sm:text-lg font-bold lowercase transition-all duration-300 flex items-center justify-center gap-2
                       border-2 ${isDark ? 'border-white hover:bg-white hover:text-black' : 'border-black hover:bg-black hover:text-white'}
                       ${isDark ? 'text-white' : 'text-black'}
                     `}
