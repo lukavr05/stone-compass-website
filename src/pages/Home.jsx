@@ -38,7 +38,7 @@ function Home() {
     >
       <div id="home" className="h-[74vh] relative overflow-hidden">
         <motion.div
-          className="absolute inset-0 -top-[20%] md:-top-[95%] bg-cover bg-top"
+          className="absolute inset-0 -top-[8%] md:-top-[95%] bg-cover bg-top"
           style={{
             y: yParallax,
             backgroundImage: "url(/images/sc_press3.avif)",
