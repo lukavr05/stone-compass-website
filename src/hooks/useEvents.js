@@ -1,15 +1,15 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 const defaultEvents = [
   {
     id: "1",
     title: "Far East Festival 2025",
-    date: "2025-07-11",
-    time: "20:00",
+    date: "2026-05-30",
+    time: "21:00",
     doors: "19:00",
-    venue: "The Garage",
+    venue: "TBA",
     location: "London, UK",
-    ticketUrl: "https://www.fareastfestival.co.uk",
+    ticketUrl: "https://bit.ly/3QXkKeP",
     featured: true,
   },
 ];
@@ -28,9 +28,7 @@ export function useEvents() {
 
   const updateEvent = (id, updates) => {
     setEvents((prev) =>
-      prev.map((event) =>
-        event.id === id ? { ...event, ...updates } : event
-      )
+      prev.map((event) => (event.id === id ? { ...event, ...updates } : event)),
     );
   };
 
@@ -38,7 +36,8 @@ export function useEvents() {
     setEvents((prev) => prev.filter((event) => event.id !== id));
   };
 
-  const featuredEvent = events.length > 0 ? events.find((e) => e.featured) || events[0] : null;
+  const featuredEvent =
+    events.length > 0 ? events.find((e) => e.featured) || events[0] : null;
 
   return {
     events,
