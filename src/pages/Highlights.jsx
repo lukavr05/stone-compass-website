@@ -1,21 +1,21 @@
-import { motion, AnimatePresence } from 'framer-motion';
-import { useTheme } from '../hooks/useTheme';
-import { fonts } from '../theme/index';
-import { BrandIcon } from '../constants/platforms.jsx';
-import { useState } from 'react';
-import { useRelease, platformIcons } from '../hooks/useRelease';
+import { motion, AnimatePresence } from "framer-motion";
+import { useTheme } from "../hooks/useTheme";
+import { fonts } from "../theme/index";
+import { BrandIcon } from "../constants/platforms.jsx";
+import { useState } from "react";
+import { useRelease, platformIcons } from "../hooks/useRelease";
 
 export default function Highlights() {
   const { themeName } = useTheme();
-  const isDark = themeName === 'dark';
+  const isDark = themeName === "dark";
   const { release } = useRelease();
   const [showLyrics, setShowLyrics] = useState(false);
 
-  const bgColor = isDark ? 'bg-black' : 'bg-white';
-  const textColor = isDark ? 'text-white' : 'text-black';
-  const mutedColor = isDark ? 'text-gray-400' : 'text-gray-600';
-  const glassBg = isDark ? 'bg-white/5' : 'bg-black/5';
-  const glassBorder = isDark ? 'border-white/10' : 'border-black/10';
+  const bgColor = isDark ? "bg-black" : "bg-white";
+  const textColor = isDark ? "text-white" : "text-black";
+  const mutedColor = isDark ? "text-gray-400" : "text-gray-600";
+  const glassBg = isDark ? "bg-white/5" : "bg-black/5";
+  const glassBorder = isDark ? "border-white/10" : "border-black/10";
 
   return (
     <div
@@ -33,7 +33,11 @@ export default function Highlights() {
           src={release.coverArt}
           alt="Latest Release Cover"
           className="w-full rounded"
-          style={{ boxShadow: isDark ? '0 0 40px rgba(255,255,255,0.19)' : '0 0 40px rgba(0,0,0,0.19)' }}
+          style={{
+            boxShadow: isDark
+              ? "0 0 40px rgba(255,255,255,0.19)"
+              : "0 0 40px rgba(0,0,0,0.19)",
+          }}
         />
 
         <div className="flex flex-col justify-center h-full">
@@ -41,7 +45,7 @@ export default function Highlights() {
             className={`block text-sm tracking-[0.1em] sm:tracking-[0.2em] ${mutedColor}`}
             style={{ fontFamily: fonts.code }}
           >
-            Latest_Release
+            latest_release
           </span>
 
           <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold mt-1">
@@ -52,20 +56,20 @@ export default function Highlights() {
             onClick={() => setShowLyrics(!showLyrics)}
             className={`
               mt-3 px-5 py-2 rounded text-sm font-bold transition-all duration-300 whitespace-nowrap w-fit
-              border ${isDark ? 'border-gray-400 text-gray-400 hover:border-white hover:text-white' : 'border-gray-600 text-gray-600 hover:border-black hover:text-black'}
+              border ${isDark ? "border-gray-400 text-gray-400 hover:border-white hover:text-white" : "border-gray-600 text-gray-600 hover:border-black hover:text-black"}
             `}
             style={{ fontFamily: fonts.code }}
           >
-            {showLyrics ? 'hide_lyrics' : 'show_lyrics'}
+            {showLyrics ? "hide_lyrics" : "show_lyrics"}
           </button>
 
           <AnimatePresence>
             {showLyrics && (
               <motion.div
                 initial={{ opacity: 0, height: 0, y: -20 }}
-                animate={{ opacity: 1, height: 'auto', y: 0 }}
+                animate={{ opacity: 1, height: "auto", y: 0 }}
                 exit={{ opacity: 0, height: 0, y: -20 }}
-                transition={{ duration: 0.3, ease: 'easeInOut' }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
                 className="overflow-hidden"
               >
                 <div
@@ -73,7 +77,12 @@ export default function Highlights() {
                 >
                   <pre
                     className={`text-sm leading-relaxed ${mutedColor}`}
-                    style={{ fontFamily: fonts.code, whiteSpace: 'pre-wrap', wordWrap: 'break-word', margin: 0 }}
+                    style={{
+                      fontFamily: fonts.code,
+                      whiteSpace: "pre-wrap",
+                      wordWrap: "break-word",
+                      margin: 0,
+                    }}
                   >
                     {release.lyrics}
                   </pre>
@@ -86,14 +95,21 @@ export default function Highlights() {
             {release.platforms.map((platform, index) => (
               <button
                 key={index}
-                onClick={() => platform.url && window.open(platform.url, '_blank', 'noopener,noreferrer')}
+                onClick={() =>
+                  platform.url &&
+                  window.open(platform.url, "_blank", "noopener,noreferrer")
+                }
                 className={`transition-all duration-250 hover:scale-120 ${textColor}`}
                 style={{ color: platform.color }}
               >
-                {getIconForPlatform(platform.name)
-                  ? <BrandIcon icon={getIconForPlatform(platform.name)} size={26} />
-                  : <span style={{ fontSize: '12px' }}>{platform.name}</span>
-                }
+                {getIconForPlatform(platform.name) ? (
+                  <BrandIcon
+                    icon={getIconForPlatform(platform.name)}
+                    size={26}
+                  />
+                ) : (
+                  <span style={{ fontSize: "12px" }}>{platform.name}</span>
+                )}
               </button>
             ))}
           </div>

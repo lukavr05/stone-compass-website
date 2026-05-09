@@ -76,7 +76,7 @@ export default function Media() {
             className={`block text-sm tracking-[0.1em] sm:tracking-[0.2em] ${mutedColor} mb-2`}
             style={{ fontFamily: fonts.code }}
           >
-            Media_Gallery
+            media_gallery
           </span>
         </motion.div>
 
