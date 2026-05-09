@@ -3,7 +3,7 @@ import { useState } from "react";
 const defaultEvents = [
   {
     id: "1",
-    title: "Far East Festival 2025",
+    title: "Far East Festival 2026",
     date: "2026-05-30",
     time: "21:00",
     doors: "19:00",
